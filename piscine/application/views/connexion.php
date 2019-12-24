@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<h3> Connexion</h3>
+<h3>Connexion</h3>
 
 
 <form method="post" action="routeur.php?controller=personne&&action=connected">
@@ -14,7 +14,7 @@
         <legend><b></b></legend>
         <p>
             <label for="email">Adresse mail</label> :
-            <input type="text" name="nom" id="nom" required/>
+            <input type="text" name="email" id="email" required/>
             <br>
 
             <label for="password">Mot de passe</label> :
@@ -27,10 +27,11 @@
     </fieldset>
 </form>
 
-<input type='hidden' name='action' value='created'>
+<input type='hidden' name='action' value='connected'>
 
 <?php echo "<a href='routeur.php?controller=personne&&action=createEleve'>"."S'inscrire en tant qu'élève".'</a></br>';?>
 <?php echo "<a href='routeur.php?controller=personne&&action=createProfesseur'>"."S'inscrire en tant que professeur".'</a></br>';?>
+<?php echo "<a href='routeur.php?controller=toeic&&action=created'>"."Créer toeic".'</a></br>';?>
 
 </body>
 </html>

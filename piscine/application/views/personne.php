@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Formulaire produit</title>
+    <title>Accueil</title>
 </head>
 
 <body>
@@ -10,13 +10,16 @@
 <p>
     <?php
 
-    var_dump($personne);
-        if (!$personne) {
+   echo "Salut ".$_SESSION['prenom']." ".$_SESSION['nom'];
+
+    /*if (!$personne) {
             echo "Rien";
         }
         else {
             echo $personne->getNom()." ".$personne->getPrenom()." ".$personne->getEmail();
-        }
+        }*/
+
+
     ?>
 
 </p>
