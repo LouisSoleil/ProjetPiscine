@@ -1,4 +1,8 @@
-<link rel="stylesheet" href="<?php echo base_url('application/assets/css/homepage.css');?>">
+<head>
 
+<link rel="stylesheet" href="<?php ('../../assets/css/homepage.css');?>">
 
+<body>
 <h3>coucou</h3>
+</body>
+</head>
