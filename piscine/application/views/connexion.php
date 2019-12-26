@@ -31,7 +31,7 @@
 
 <?php echo "<a href='routeur.php?controller=personne&&action=createEleve'>"."S'inscrire en tant qu'élève".'</a></br>';?>
 <?php echo "<a href='routeur.php?controller=personne&&action=createProfesseur'>"."S'inscrire en tant que professeur".'</a></br>';?>
-<?php echo "<a href='routeur.php?controller=toeic&&action=created'>"."Créer toeic".'</a></br>';?>
+<?php echo "<a href='routeur.php?controller=toeic&&action=create'>"."Créer toeic".'</a></br>';?>
 
 </body>
 </html>

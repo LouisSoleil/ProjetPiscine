@@ -26,7 +26,7 @@
                 '<input type="radio" name="coder" id="C" value="C" required/>'.
                 '<label for="cocher">D</label>'.
                 '<input type="radio" name="coder" id="D" value="D" required/>'.
-                '<br>';
+                '<br><br>';
             }
 
             ?>

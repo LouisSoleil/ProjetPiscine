@@ -49,15 +49,16 @@ class ControllerPersonne {
     public static function createdProfesseur() {
 
         if ($_POST['password'] != $_POST['password_confirm']) {
-            self::createdProfesseur();
+            self::createProfesseur();
         }
         else {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $professeur = new ModelProfesseur($_POST['codeINE'], $_POST['email'], $_POST['nom'], $_POST['prenom'], $password);
             $cr = $professeur->save();
+            var_dump($cr);
 
             if ($cr == 1) {
-                self::createProfesseur();
+                header('Location: routeur.php?controller=personne&&action=createProfesseur');
             }
             else {
                 self::connect();
@@ -83,7 +84,14 @@ class ControllerPersonne {
                 if (password_verify($_POST['password'], $personne->getMdp())) {
                     $_SESSION['nom'] = $personne->getNom();
                     $_SESSION['prenom'] = $personne->getPrenom();
-                    require ('../views/personne.php');
+                    $_SESSION['email'] = $_POST['email'];
+
+                    if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
+                        header('Location: ../views/eleve/accueil.php');
+                    }
+                    else {
+                        header('Location: ../views/professeur/accueil.php');
+                    }
                 }
                 else {
                     self::connect();
