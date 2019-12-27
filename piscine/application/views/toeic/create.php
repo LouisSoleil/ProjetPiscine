@@ -23,13 +23,13 @@
             for ($i = 1; $i <= 200; $i++) {
                 echo "$i :  ";
                 echo '<label for="cocher">A</label>'.
-                '<input type="radio" name="'.$i.'" value="A" checked/>'.
+                '<input type="radio" name="'.$i.'" value="A" />'.
                 '<label for="cocher">B</label>'.
-                '<input type="radio" name="'.$i.'" value="B" checked/>'.
+                '<input type="radio" name="'.$i.'" value="B" />'.
                 '<label for="cocher">C</label>'.
                 '<input type="radio" name="'.$i.'" value="C" checked/>'.
                 '<label for="cocher">D</label>'.
-                '<input type="radio" name="'.$i.'" value="D" checked/>'.
+                '<input type="radio" name="'.$i.'" value="D" />'.
                 '<br><br>';
             }
 

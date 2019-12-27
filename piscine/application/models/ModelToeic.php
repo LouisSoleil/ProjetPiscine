@@ -96,11 +96,118 @@ class ModelToeic {
         return $rep->fetchAll();
     }
 
-    public static function getToeicsInvisibles() {
+    public static function updateVisibilite($idToeic, $value) {
 
-        $requete = "SELECT * FROM toeic WHERE estVisible = 0 ORDER BY idToeic";
-        $rep = Model::$pdo->query($requete);
+        $requete = "UPDATE toeic SET estVisible = :value_tag WHERE idToeic = :id_toeic_tag";
 
-        return $rep->fetchAll();
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "id_toeic_tag" => $idToeic,
+                "value_tag" => $value
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+    }
+
+    public static function recupererReponse($idToeic) {
+
+        $requete = "SELECT reponseJuste FROM question WHERE idToeic = :id_toeic_tag";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "id_toeic_tag" => $idToeic
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+        $tab = $req_prep->fetchAll();
+
+        $reponses = array();
+        $i = 1;
+
+        foreach ($tab as $value) {
+            $reponses[$i] = $value['reponseJuste'];
+            $i++;
+        }
+
+        return $reponses;
+    }
+
+    public static function note($reponses, $reponsesJustes) {
+
+        $note = 0;
+        $notePartie = 0;
+
+        for ($i = 1; $i <= 200; $i++) {
+
+            if ($reponses[$i] == $reponsesJustes[$i]) {
+                $note++;
+                $notePartie++;
+            }
+
+            switch ($i) {
+                case 6:
+                    $idPartie = 1;
+                    break;
+                case 31:
+                    $idPartie = 2;
+                    break;
+                case 70:
+                    $idPartie = 3;
+                    break;
+                case 100:
+                    $idPartie = 4;
+                    break;
+                case 130:
+                    $idPartie = 5;
+                    break;
+                case 146:
+                    $idPartie = 6;
+                    break;
+                case 147:
+                    $idPartie = 7;
+                    break;
+                default:
+                    $idPartie = 0;
+            }
+
+            if ($idPartie != 0) {
+                $requete = "INSERT INTO repondre (codeINE, idToeic, idPartie, `date`, score) VALUES (:codeINE_tag, :id_toeic_tag, :id_partie_tag, :date_tag, :score_tag)";
+
+                try {
+                    $req_prep = Model::$pdo->prepare($requete);
+
+                    $values = array (
+                        "codeINE_tag" => "",
+                        "id_toeic_tag" => $_SESSION['idToeicChoisi'],
+                        "id_partie_tag" => $idPartie,
+                        "date_tag" => "",
+                        "score_tag" => $notePartie
+                    );
+
+                    $req_prep->execute($values);
+
+                } catch (PDOException $e) {
+                    return 1;
+                }
+
+                $notePartie = 0;
+            }
+        }
+
+
+        return $note;
     }
 }
