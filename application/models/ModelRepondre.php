@@ -1,7 +1,7 @@
 <?php  
 
 require_once ("Model.php");
-abstract class ModelStats 
+abstract class ModelRepondre 
 {
 
 	protected $codeINE;
@@ -35,17 +35,30 @@ abstract class ModelStats
         return $req_prep->fetchColumn();
 	}
 
+	public function get_partie(){
+		$requete = "SELECT DISTINCT idPartie, libellePartie FROM souspartie";
+		$rep = Model::$pdo->query($requete);
+		$values = array ('IdPartie' => 'LibellePartie');
+        $rep->execute($values);
+        return $rep;
+	}
+
 
 	public function get_allreponses(){
+		$requete = "SELECT date, score FROM repondre";
+        $rep = Model::$pdo->query($requete);
+        $value = array ('date' => 'score');
+        $rep->execute($value);
+        return $rep;
+    }
+
+    public function get_allreponses2(){
 		$requete = "SELECT idTOEIC, score FROM repondre";
         $rep = Model::$pdo->query($requete);
-        $i = 0;
-        while ($data = $rep->fetch()) {
-            $res[$i] = $data['score']/*." - ".$data['libelleGroupe']*/;
-            $i++;
-        }
-        return $res;
-	}
+        $value = array ('idTOEIC' => 'score');
+        $rep->execute($value);
+        return $rep;
+    }
 
 
 }
