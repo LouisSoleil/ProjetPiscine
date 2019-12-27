@@ -1,5 +1,7 @@
 <?php
 
+require_once ('Model.php');
+
 class ModelProfesseur extends ModelPersonne {
 
     public function __construct($codeINE = NULL, $email = NULL, $nom = NULL, $prenom = NULL, $mdp = NULL) {

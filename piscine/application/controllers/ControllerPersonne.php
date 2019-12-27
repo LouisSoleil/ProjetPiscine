@@ -55,7 +55,6 @@ class ControllerPersonne {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $professeur = new ModelProfesseur($_POST['codeINE'], $_POST['email'], $_POST['nom'], $_POST['prenom'], $password);
             $cr = $professeur->save();
-            var_dump($cr);
 
             if ($cr == 1) {
                 header('Location: routeur.php?controller=personne&&action=createProfesseur');

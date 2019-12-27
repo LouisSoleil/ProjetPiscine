@@ -1,13 +1,11 @@
-function changeImage(element) {
+var btn = document.querySelector('input');
 
-    var x = element.getElementsByTagName("img").item(0);
-    var v = x.getAttribute("src");
-    if (v == "../../france.jpg") {
-        v = "uk.jpg";
-    }
-    else {
-        v = "uk.jpg";
-    }
+btn.addEventListener('click', updateBtn);
 
-    x.setAttribute("src",v);
+function updateBtn() {
+    if (btn.value === 'Visible') {
+        btn.value = 'Invisible';
+    } else {
+        btn.value = 'Visible';
+    }
 }
