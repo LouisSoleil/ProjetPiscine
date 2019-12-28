@@ -149,6 +149,9 @@ class ModelToeic {
 
         $note = 0;
         $notePartie = 0;
+        $tabNotes = array();
+
+        $date = date("Y-m-d H:i:s");
 
         for ($i = 1; $i <= 200; $i++) {
 
@@ -160,24 +163,31 @@ class ModelToeic {
             switch ($i) {
                 case 6:
                     $idPartie = 1;
+                    $baremePartie = 6;
                     break;
                 case 31:
                     $idPartie = 2;
+                    $baremePartie = 25;
                     break;
                 case 70:
                     $idPartie = 3;
+                    $baremePartie = 39;
                     break;
                 case 100:
                     $idPartie = 4;
+                    $baremePartie = 30;
                     break;
                 case 130:
                     $idPartie = 5;
+                    $baremePartie = 30;
                     break;
                 case 146:
                     $idPartie = 6;
+                    $baremePartie = 16;
                     break;
-                case 147:
+                case 200:
                     $idPartie = 7;
+                    $baremePartie = 54;
                     break;
                 default:
                     $idPartie = 0;
@@ -190,10 +200,10 @@ class ModelToeic {
                     $req_prep = Model::$pdo->prepare($requete);
 
                     $values = array (
-                        "codeINE_tag" => "",
+                        "codeINE_tag" => $_SESSION['codeINE'],
                         "id_toeic_tag" => $_SESSION['idToeicChoisi'],
                         "id_partie_tag" => $idPartie,
-                        "date_tag" => "",
+                        "date_tag" => $date,
                         "score_tag" => $notePartie
                     );
 
@@ -203,11 +213,14 @@ class ModelToeic {
                     return 1;
                 }
 
+                $tabNotes[$idPartie] = array("notePartie" => $notePartie, "baremePartie" => $baremePartie);
                 $notePartie = 0;
             }
         }
 
 
-        return $note;
+        return $tabNotes;
     }
 }
+
+//session_destroy();

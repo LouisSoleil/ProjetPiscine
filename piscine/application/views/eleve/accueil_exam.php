@@ -15,16 +15,28 @@
 
             <?php
 
-            foreach ($toeics as $value) {
-                echo '<label for="cocher">'.$value['IdTOEIC'].' - '.$value['LibelleTOEIC'].'</label>'.
-                    '<input type="radio" name="toeic" value="'.$value['IdTOEIC'].'" />'.
-                    '<br><br>';
+            if (empty($toeics)) {
+                echo "Aucun toeic disponible";
             }
+            else {
+                /*foreach ($toeics as $value) {
+                    echo '<label for="cocher">'.$value['IdTOEIC'].' - '.$value['LibelleTOEIC'].'</label>'.
+                        '<input type="radio" name="toeic" value="'.$value['IdTOEIC'].'" />'.
+                        '<br><br>';
+                }*/
+
+                foreach ($toeics as $value) {
+                    echo '<button type="submit" name="toeic" value="'.$value['IdTOEIC'].'">'.$value['LibelleTOEIC'].'</button><br><br>';
+                }
+
+
+            }
+
             ?>
         </p>
-        <p>
-            <input type="submit" value="Valider" />
-        </p>
+    <p>
+
+    </p>
 </form>
 
 <input type='hidden' name='action' value='taken'>

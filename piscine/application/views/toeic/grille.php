@@ -16,6 +16,8 @@
 
             <?php
 
+            var_dump($_SESSION['idToeicChoisi']);
+
             for ($i = 1; $i <= 200; $i++) {
                 echo "$i :  ";
                 echo '<label for="cocher">A</label>'.

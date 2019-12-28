@@ -10,10 +10,17 @@
 
 
 <?php
-echo $note.'/200<br>';
 
-$datetime = date("Y-m-d H:i:s");
-echo $datetime;
+$noteTotal = 0;
+
+foreach ($notes as $key => $value) {
+    echo "Partie $key : ".$value['notePartie']." / ".$value['baremePartie']."<br>";
+    $noteTotal += $value['notePartie'];
+}
+
+echo "<br>";
+
+echo "Note : $noteTotal / 200";
 ?>
 
 </body>

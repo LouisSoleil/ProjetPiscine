@@ -73,29 +73,36 @@ class ControllerPersonne {
         $personne = ModelPersonne::chercherPersonne($_POST['email']);
 
         if (!$personne) {
-            self::connect();
+            header('Location: routeur.php?controller=personne&&action=connect');
         }
         else {
             if (is_null($personne)) {
-                self::connect();
+                header('Location: routeur.php?controller=personne&&action=connect');
             }
             else {
                 if (password_verify($_POST['password'], $personne->getMdp())) {
+                    //session_start();
                     $_SESSION['nom'] = $personne->getNom();
                     $_SESSION['prenom'] = $personne->getPrenom();
+                    $_SESSION['codeINE'] = $personne->getCodeINE();
                     $_SESSION['email'] = $_POST['email'];
 
+                    var_dump($_SESSION['nom']);
+                    var_dump($_SESSION['codeINE']);
+
                     if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
-                        header('Location: ../views/eleve/accueil.php');
+                        require ('../views/eleve/accueil.php');
                     }
                     else {
-                        header('Location: ../views/professeur/accueil.php');
+                        require ('../views/professeur/accueil.php');
                     }
                 }
                 else {
-                    self::connect();
+                    header('Location: routeur.php?controller=personne&&action=connect');
                 }
             }
         }
     }
 }
+
+//session_destroy();

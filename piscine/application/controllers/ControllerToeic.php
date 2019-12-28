@@ -1,5 +1,7 @@
 <?php
 
+//session_start();
+
 require_once ('../models/ModelToeic.php');
 
 class ControllerToeic {
@@ -52,6 +54,7 @@ class ControllerToeic {
 
     public static function taken() {
 
+
         if (isset($_POST['toeic'])) {
             $_SESSION['idToeicChoisi'] = $_POST['toeic'];
 
@@ -70,7 +73,7 @@ class ControllerToeic {
 
         $reponsesJustes = ModelToeic::recupererReponse($_SESSION['idToeicChoisi']);
 
-        $note = ModelToeic::note($reponses, $reponsesJustes);
+        $notes = ModelToeic::note($reponses, $reponsesJustes);
 
         require ('../views/toeic/score.php');
 
