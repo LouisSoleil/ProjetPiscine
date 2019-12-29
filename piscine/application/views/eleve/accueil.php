@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Score</title>
+    <title>Accueil</title>
 </head>
 
 <body>
-<h3>Score</h3>
+<h3>Accueil</h3>
 
 <?php
 

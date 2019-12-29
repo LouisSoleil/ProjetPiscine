@@ -33,7 +33,9 @@
 <?php echo "<a href='routeur.php?controller=personne&&action=createProfesseur'>"."S'inscrire en tant que professeur".'</a></br>';?>
 <?php echo "<a href='routeur.php?controller=toeic&&action=create'>"."Créer toeic".'</a></br>';?>
 <?php echo "<a href='routeur.php?controller=toeic&&action=activate'>"."Activer/Désactiver".'</a></br>';?>
-<?php echo "<a href='routeur.php?controller=toeic&&action=take'>"."Passer un toeic".'</a></br>';?>
+<?php /*echo "<a href='routeur.php?controller=toeic&&action=take'>"."Passer un toeic".'</a></br>';*/?>
+
+<input type="button" value="Passer un toeic" onclick="javascript:location.href='routeur.php?controller=toeic&&action=take'">
 
 
 </body>

@@ -88,6 +88,30 @@ class ModelToeic {
         return $rep->fetchAll();
     }
 
+    public static function getToeicById($idToeic) {
+
+        $requete = "SELECT * FROM toeic WHERE idToeic = :id_toeic_tag";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "id_toeic_tag" => $idToeic
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+        $toeic = $req_prep->fetchAll()[0];
+        $reponses = self::recupererReponse($idToeic);
+        $toeic['reponses'] = $reponses;
+
+        return $toeic;
+    }
+
     public static function getToeicsVisibles() {
 
         $requete = "SELECT * FROM toeic WHERE estVisible = 1 ORDER BY idToeic";
@@ -106,6 +130,65 @@ class ModelToeic {
             $values = array (
                 "id_toeic_tag" => $idToeic,
                 "value_tag" => $value
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+    }
+
+    public static function updateReponses($idToeic, $libelle, $reponses) {
+
+        $requete = "UPDATE toeic SET libelleToeic = :libelle_tag WHERE idToeic = :id_toeic_tag";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "id_toeic_tag" => $idToeic,
+                "libelle_tag" => $libelle
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+        for ($i = 1; $i <= 200; $i++) {
+            $newReponse = $reponses[$i];
+            $requete = "UPDATE question SET reponseJuste = :new_reponse_tag WHERE idToeic = :id_toeic_tag AND idQuestion = :question_tag";
+
+            try {
+                $req_prep = Model::$pdo->prepare($requete);
+
+                $values = array (
+                    "id_toeic_tag" => $idToeic,
+                    "new_reponse_tag" => $newReponse,
+                    "question_tag" => $i
+                );
+
+                $req_prep->execute($values);
+
+            } catch (PDOException $e) {
+                return 2;
+            }
+        }
+    }
+
+    public static function deleteToeic($idToeic) {
+
+        $requete = "DELETE FROM question WHERE idToeic = :id_toeic_tag;".
+            "DELETE FROM sousPartie WHERE idToeic = :id_toeic_tag;".
+            "DELETE FROM toeic WHERE idToeic = :id_toeic_tag;";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "id_toeic_tag" => $idToeic
             );
 
             $req_prep->execute($values);

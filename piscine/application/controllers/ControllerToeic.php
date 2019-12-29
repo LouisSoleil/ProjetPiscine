@@ -78,4 +78,47 @@ class ControllerToeic {
         require ('../views/toeic/score.php');
 
     }
+
+    public static function modify() {
+
+        $toeics = ModelToeic::getToeics();
+
+        if (isset($_POST['toeic'])) {
+
+            $toeicChoisi = ModelToeic::getToeicById($_POST['toeic']);
+
+            require ('../views/toeic/modify.php');
+        }
+        else {
+            require('../views/toeic/list_modify.php');
+        }
+    }
+
+    public static function modified() {
+
+        $reponses = array();
+
+        for ($i = 1; $i <= 200; $i++) {
+            $reponses[$i] = $_POST[$i];
+        }
+
+        ModelToeic::updateReponses($_POST['toeic'], $_POST['name'], $reponses);
+
+        require ('../views/professeur/accueil.php');
+    }
+
+    public static function delete() {
+
+        $toeics = ModelToeic::getToeics();
+
+        require ('../views/toeic/delete.php');
+    }
+
+    public static function deleted() {
+
+        ModelToeic::deleteToeic($_POST['toeic']);
+
+        require ('../views/professeur/accueil.php');
+
+    }
 }
