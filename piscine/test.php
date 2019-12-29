@@ -1,15 +1,13 @@
+<!DOCTYPE html>
 <html>
 <head>
+
+    <link rel="stylesheet" type="text/css" href="grille.css" />
     <script type="text/Javascript">
-        var secondes = 0;
+        var secondes = 3600;
         var timer;
-        var pause = false;
         var text = "";
 
-        function IndiquerMinutes(min)
-        {
-            secondes = min * 60;
-        }
         function Chrono()
         {
             if (secondes > 0)
@@ -47,53 +45,62 @@
             {
                 clearInterval(timer);
                 text = "Le temps est écoulé";
+                document.forms['test_toeic'].submit();
             }
             document.getElementById('chrono').innerHTML = text;
         }
+
         function DemarrerChrono()
         {
             timer = setInterval('Chrono()', 1000);
-            document.getElementById('btn_dem').style.display = 'none';
-            document.getElementById('btn_stop').style.display = 'inline';
-            document.getElementById('btn_pause').style.display = 'inline';
 
         }
-        function ArreterChrono()
-        {
-            clearInterval(timer);
-            document.getElementById('btn_dem').style.display = 'inline';
-            document.getElementById('btn_stop').style.display = 'none';
-            document.getElementById('btn_pause').style.display = 'none';
-        }
-        function PauseChrono()
-        {
-            if (!pause)
-            {
-                pause = true;
-                clearInterval(timer);
-                text = '[EN PAUSE] ' + text;
-                document.getElementById('chrono').innerHTML = text;
-                document.getElementById('btn_stop').style.display = 'none';
-                document.getElementById('btn_pause').value = 'Reprendre';
-            }
-            else
-            {
-                pause = false;
-                DemarrerChrono();
-                document.getElementById('btn_pause').value = 'Pause';
-            }
-        }
-
     </script>
+    <meta charset="UTF-8">
+    <title>Passer le toeic</title>
 </head>
-<body>
-<form name="f_chrono">
-    <label for="saisie">Entrez le temps voulu en minutes : </label>
-    <input type="text" name="saisie" style="text-align: right;" /><br />
-    <input type="button" name="btn_dem" id="btn_dem" value="Démarrer" onclick="IndiquerMinutes(f_chrono.saisie.value); DemarrerChrono();" />
-    <input type="button" name="btn_stop" id="btn_stop" value="Arreter !" onclick="ArreterChrono();" style="display: none;" />
-    <input type="button" name="btn_pause" id="btn_pause" value="Pause" onclick="PauseChrono();" style="display: none;" />
+
+<body onload="DemarrerChrono();">
+
+<h3>TOEIC</h3>
+
+<div id="div_chrono">
+    <p id="chrono"></p>
+</div>
+
+
+<form method="post" name="test_toeic" id="test_toeic" action="routeur.php?controller=toeic&&action=correct">
+    <fieldset>
+        <legend><b></b></legend>
+        <p>
+
+            <?php
+
+            for ($i = 1; $i <= 200; $i++) {
+                echo "$i :  ";
+                echo '<label for="cocher">A</label>'.
+                    '<input type="radio" name="'.$i.'" value="A" />'.
+                    '<label for="cocher">B</label>'.
+                    '<input type="radio" name="'.$i.'" value="B" />'.
+                    '<label for="cocher">C</label>'.
+                    '<input type="radio" name="'.$i.'" value="C" />'.
+                    '<label for="cocher">D</label>'.
+                    '<input type="radio" name="'.$i.'" value="D" />'.
+                    '<br><br>';
+            }
+
+            ?>
+
+
+        </p>
+        <p>
+            <input type="submit" value="Valider" />
+        </p>
+    </fieldset>
 </form>
-<p id="chrono"></p>
+
+<input type='hidden' name='action' value='created'>
+
+
 </body>
 </html>

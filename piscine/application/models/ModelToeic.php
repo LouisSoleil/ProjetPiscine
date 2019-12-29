@@ -106,7 +106,7 @@ class ModelToeic {
         }
 
         $toeic = $req_prep->fetchAll()[0];
-        $reponses = self::recupererReponse($idToeic);
+        $reponses = self::recupererReponses($idToeic);
         $toeic['reponses'] = $reponses;
 
         return $toeic;
@@ -198,7 +198,7 @@ class ModelToeic {
         }
     }
 
-    public static function recupererReponse($idToeic) {
+    public static function recupererReponses($idToeic) {
 
         $requete = "SELECT reponseJuste FROM question WHERE idToeic = :id_toeic_tag";
 
@@ -233,6 +233,8 @@ class ModelToeic {
         $note = 0;
         $notePartie = 0;
         $tabNotes = array();
+        $tabNotes['oral'] = 0;
+        $tabNotes['ecrit'] = 0;
 
         $date = date("Y-m-d H:i:s");
 
@@ -297,9 +299,18 @@ class ModelToeic {
                 }
 
                 $tabNotes[$idPartie] = array("notePartie" => $notePartie, "baremePartie" => $baremePartie);
+
+                if ($idPartie < 5) {
+                    $tabNotes['oral'] += $notePartie;
+                }
+                else {
+                    $tabNotes['ecrit'] += $notePartie;
+                }
                 $notePartie = 0;
             }
         }
+
+
 
 
         return $tabNotes;

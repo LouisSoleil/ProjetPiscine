@@ -1,6 +1,5 @@
-var secondes = 5;
+var secondes = 3600;
 var timer;
-var pause = false;
 var text = "";
 
 function Chrono()
@@ -40,6 +39,7 @@ function Chrono()
     {
         clearInterval(timer);
         text = "Le temps est écoulé";
+        document.forms['test_toeic'].submit();
     }
     document.getElementById('chrono').innerHTML = text;
 }
@@ -47,33 +47,5 @@ function Chrono()
 function DemarrerChrono()
 {
     timer = setInterval('Chrono()', 1000);
-    document.getElementById('btn_dem').style.display = 'none';
-    document.getElementById('btn_stop').style.display = 'inline';
-    document.getElementById('btn_pause').style.display = 'inline';
 
-}
-function ArreterChrono()
-{
-    clearInterval(timer);
-    document.getElementById('btn_dem').style.display = 'inline';
-    document.getElementById('btn_stop').style.display = 'none';
-    document.getElementById('btn_pause').style.display = 'none';
-}
-function PauseChrono()
-{
-    if (!pause)
-    {
-        pause = true;
-        clearInterval(timer);
-        text = '[EN PAUSE] ' + text;
-        document.getElementById('chrono').innerHTML = text;
-        document.getElementById('btn_stop').style.display = 'none';
-        document.getElementById('btn_pause').value = 'Reprendre';
-    }
-    else
-    {
-        pause = false;
-        DemarrerChrono();
-        document.getElementById('btn_pause').value = 'Pause';
-    }
 }

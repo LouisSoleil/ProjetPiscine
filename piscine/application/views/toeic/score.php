@@ -20,7 +20,14 @@ foreach ($notes as $key => $value) {
 
 echo "<br>";
 
+var_dump($notes);
+
 echo "Note : $noteTotal / 200";
+
+for ($i = 1; $i <=7; $i++) {
+    echo "Partie ".$i." : ".$notes[$i]['notePartie']." / ".$notes[$i]['baremePartie']."<br>";
+    $noteTotal += $notes[$i]['notePartie'];
+}
 ?>
 
 </body>

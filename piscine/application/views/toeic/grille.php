@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <link rel="stylesheet" type="text/css" href="../../grille.css" />
+    <script type="text/Javascript" src="../../chrono.js"></script>
     <meta charset="UTF-8">
     <title>Passer le toeic</title>
 </head>
 
-<body>
+<body onload="DemarrerChrono();">
+
 <h3>TOEIC</h3>
 
+<div id="div_chrono">
+    <p id="chrono"></p>
+</div>
 
-<form method="post" action="routeur.php?controller=toeic&&action=correct">
+<form method="post" name="test_toeic" id="test_toeic" action="routeur.php?controller=toeic&&action=correct">
     <fieldset>
         <legend><b></b></legend>
         <p>
 
             <?php
-
-            var_dump($_SESSION['idToeicChoisi']);
 
             for ($i = 1; $i <= 200; $i++) {
                 echo "$i :  ";
@@ -42,6 +47,7 @@
 </form>
 
 <input type='hidden' name='action' value='created'>
+
 
 </body>
 </html>

@@ -68,10 +68,10 @@ class ControllerToeic {
         $reponses = array();
 
         for ($i = 1; $i <= 200; $i++) {
-            $reponses[$i] = $_POST[$i];
+            $reponses[$i] = (isset($_POST[$i])) ? $_POST[$i] : "";
         }
 
-        $reponsesJustes = ModelToeic::recupererReponse($_SESSION['idToeicChoisi']);
+        $reponsesJustes = ModelToeic::recupererReponses($_SESSION['idToeicChoisi']);
 
         $notes = ModelToeic::note($reponses, $reponsesJustes);
 
