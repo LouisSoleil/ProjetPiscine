@@ -15,19 +15,20 @@ CREATE TABLE piscine.Classe(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE piscine.Personne(
-        codeINE   Varchar (50) NOT NULL ,
-        nom       Varchar (50) NOT NULL ,
-        prenom    Varchar (50) NOT NULL ,
-        email     Varchar (50) NOT NULL ,
-        mdp       Varchar (50) NOT NULL ,
-        NumGroupe Int NOT NULL ,
-        IdClasse  Int NOT NULL
-	,CONSTRAINT Personne_PK PRIMARY KEY (codeINE)
-
-	,CONSTRAINT Personne_Groupe_FK FOREIGN KEY (NumGroupe) REFERENCES Groupe(NumGroupe)
-	,CONSTRAINT Personne_Classe0_FK FOREIGN KEY (IdClasse) REFERENCES Classe(IdClasse)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE piscine.Personne (
+	codeINE varchar(50) NOT NULL,
+	nom varchar(50) NOT NULL,
+	prenom varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
+	mdp varchar(255) NOT NULL,
+	NumGroupe int(11) DEFAULT NULL,
+	IdClasse int(11) DEFAULT NULL,
+	PRIMARY KEY (codeINE),
+	KEY Personne_Groupe_FK (NumGroupe),
+	KEY Personne_Classe0_FK (IdClasse),
+	CONSTRAINT Personne_Classe0_FK FOREIGN KEY (IdClasse) REFERENCES classe (IdClasse),
+	CONSTRAINT Personne_Groupe_FK FOREIGN KEY (NumGroupe) REFERENCES groupe (NumGroupe)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
 CREATE TABLE piscine.TOEIC(
@@ -59,15 +60,15 @@ CREATE TABLE piscine.Question(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE piscine.repondre(
-        codeINE  Varchar(50) NOT NULL ,
-        date     Date NOT NULL ,
-        IdTOEIC  Int NOT NULL ,
-        IdPartie Int NOT NULL ,
-        score    Int NOT NULL
-	,CONSTRAINT repondre_PK PRIMARY KEY (codeINE,date,IdTOEIC,IdPartie)
-
-	,CONSTRAINT repondre_Personne_FK FOREIGN KEY (codeINE) REFERENCES Personne(codeINE)
-	,CONSTRAINT repondre_souspartie1_FK FOREIGN KEY (IdTOEIC,IdPartie) REFERENCES souspartie(IdTOEIC,IdPartie)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE piscine.Repondre (
+	codeINE varchar(50) NOT NULL,
+	`date` datetime NOT NULL,
+	IdTOEIC int(11) NOT NULL,
+	IdPartie int(11) NOT NULL,
+	score int(11) NOT NULL,
+	PRIMARY KEY (codeINE,`date`,IdTOEIC,IdPartie),
+	KEY repondre_souspartie1_FK (IdTOEIC,`IdPartie),
+	CONSTRAINT repondre_Personne_FK FOREIGN KEY (codeINE) REFERENCES personne (codeINE),
+	CONSTRAINT repondre_souspartie1_FK FOREIGN KEY (IdTOEIC, IdPartie) REFERENCES souspartie (IdTOEIC, IdPartie)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
