@@ -7,7 +7,13 @@ require_once ('../models/ModelToeic.php');
 class ControllerToeic {
 
     public static function create() {
-        require ('../views/toeic/create.php');
+
+        if (!empty($_SESSION)) {
+            require ('../views/toeic/create.php');
+        }
+        else {
+            require ('../views/error.php');
+        }
     }
 
     public static function created() {
@@ -74,6 +80,8 @@ class ControllerToeic {
         $reponsesJustes = ModelToeic::recupererReponses($_SESSION['idToeicChoisi']);
 
         $notes = ModelToeic::note($reponses, $reponsesJustes);
+        $scoreListening = ModelToeic::getScoreListening($notes['listening']);
+        $scoreReading = ModelToeic::getScoreReading($notes['reading']);
 
         require ('../views/toeic/score.php');
 

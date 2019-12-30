@@ -11,9 +11,8 @@
 
 <?php
 
-$noteTotal = 0;
 
-foreach ($notes as $key => $value) {
+/*foreach ($notes as $key => $value) {
     echo "Partie $key : ".$value['notePartie']." / ".$value['baremePartie']."<br>";
     $noteTotal += $value['notePartie'];
 }
@@ -22,13 +21,24 @@ echo "<br>";
 
 var_dump($notes);
 
-echo "Note : $noteTotal / 200";
+echo "Note : $noteTotal / 200";*/
 
 for ($i = 1; $i <=7; $i++) {
     echo "Partie ".$i." : ".$notes[$i]['notePartie']." / ".$notes[$i]['baremePartie']."<br>";
-    $noteTotal += $notes[$i]['notePartie'];
 }
+
+echo "<br>";
+
+echo "Partie Orale : ".$notes['listening']." / 100"."<br>";
+echo "Partie Ecrite : ".$notes['reading']." / 100"."<br>";
+echo "<br>";
+echo "Note : ". ($notes['reading']+$notes['listening'])." / 200";
+
+
+
 ?>
+
+<input type="button" value="Revenir à la page d'accueil" onclick="javascript:location.href='routeur.php?controller=personne&&action=accueil'">
 
 </body>
 </html>

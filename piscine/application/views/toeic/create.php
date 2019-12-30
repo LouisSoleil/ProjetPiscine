@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Passer le toeic</title>
+    <title>Créer un toeic</title>
 </head>
 
 <body>
@@ -19,6 +19,8 @@
             <br><br><br>
 
             <?php
+
+            var_dump($_SESSION);
 
             for ($i = 1; $i <= 200; $i++) {
                 echo "$i :  ";

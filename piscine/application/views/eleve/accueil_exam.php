@@ -15,6 +15,8 @@
 
             <?php
 
+            var_dump($_SESSION);
+
             if (empty($toeics)) {
                 echo "Aucun toeic disponible";
             }

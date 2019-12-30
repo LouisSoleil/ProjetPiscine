@@ -233,8 +233,8 @@ class ModelToeic {
         $note = 0;
         $notePartie = 0;
         $tabNotes = array();
-        $tabNotes['oral'] = 0;
-        $tabNotes['ecrit'] = 0;
+        $tabNotes['listening'] = 0;
+        $tabNotes['reading'] = 0;
 
         $date = date("Y-m-d H:i:s");
 
@@ -301,19 +301,58 @@ class ModelToeic {
                 $tabNotes[$idPartie] = array("notePartie" => $notePartie, "baremePartie" => $baremePartie);
 
                 if ($idPartie < 5) {
-                    $tabNotes['oral'] += $notePartie;
+                    $tabNotes['listening'] += $notePartie;
                 }
                 else {
-                    $tabNotes['ecrit'] += $notePartie;
+                    $tabNotes['reading'] += $notePartie;
                 }
                 $notePartie = 0;
             }
         }
 
-
-
-
         return $tabNotes;
+    }
+
+    public static function getScoreListening($note) {
+
+        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "note_tag" => $note
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+        return $req_prep->fetchAll()[0]['valeur'];
+    }
+
+    public static function getScoreReading($note) {
+
+        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "note_tag" => (100 + $note)
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+        return $req_prep->fetchAll()[0]['valeur'];
+
+
     }
 }
 
