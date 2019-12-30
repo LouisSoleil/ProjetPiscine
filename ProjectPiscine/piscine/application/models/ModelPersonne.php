@@ -35,8 +35,13 @@ abstract class ModelPersonne {
         return $this->mdp;
     }
 
-
-
+    /**
+     * @return null
+     */
+    public function getCodeINE()
+    {
+        return $this->codeINE;
+    }
 
 
     public static function chercherPersonne($email) {

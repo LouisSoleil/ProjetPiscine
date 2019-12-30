@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Passer le toeic</title>
+    <title>Créer un toeic</title>
 </head>
 
 <body>
@@ -14,18 +14,24 @@
         <legend><b></b></legend>
         <p>
 
+            <label for="nom">Libellé du TOEIC</label> :
+            <input type="text" name="name" id="name" required/>
+            <br><br><br>
+
             <?php
 
-            for ($i = 1; $i <= 100; $i++) {
+            var_dump($_SESSION);
+
+            for ($i = 1; $i <= 200; $i++) {
                 echo "$i :  ";
                 echo '<label for="cocher">A</label>'.
-                '<input type="radio" name="coder" id="A" value="A" required/>'.
+                '<input type="radio" name="'.$i.'" value="A" />'.
                 '<label for="cocher">B</label>'.
-                '<input type="radio" name="coder" id="B" value="B" required/>'.
+                '<input type="radio" name="'.$i.'" value="B" />'.
                 '<label for="cocher">C</label>'.
-                '<input type="radio" name="coder" id="C" value="C" required/>'.
+                '<input type="radio" name="'.$i.'" value="C" checked/>'.
                 '<label for="cocher">D</label>'.
-                '<input type="radio" name="coder" id="D" value="D" required/>'.
+                '<input type="radio" name="'.$i.'" value="D" />'.
                 '<br><br>';
             }
 

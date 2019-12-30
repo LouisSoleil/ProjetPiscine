@@ -1,3 +1,12 @@
+<?php
+
+if (isset($_SESSION)) {
+    unset($_SESSION);
+}
+
+//var_dump($_SESSION);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,9 +38,9 @@
 
 <input type='hidden' name='action' value='connected'>
 
-<?php echo "<a href='routeur.php?controller=personne&&action=createEleve'>"."S'inscrire en tant qu'élève".'</a></br>';?>
-<?php echo "<a href='routeur.php?controller=personne&&action=createProfesseur'>"."S'inscrire en tant que professeur".'</a></br>';?>
-<?php echo "<a href='routeur.php?controller=toeic&&action=create'>"."Créer toeic".'</a></br>';?>
+<input type="button" value="S'inscrire en tant qu'élève" onclick="javascript:location.href='routeur.php?controller=personne&&action=createEleve'">
+<input type="button" value="S'inscrire en tant que professeur" onclick="javascript:location.href='routeur.php?controller=personne&&action=createProfesseur'">
+
 
 </body>
 </html>

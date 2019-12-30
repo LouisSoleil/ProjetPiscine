@@ -9,13 +9,6 @@ require_once ('../models/ModelClasse.php');
 
 class ControllerPersonne {
 
-    /*public static function search() {
-
-        $personne = ModelPersonne::chercherPersonne("guillaume.dufour@etu.umontpellier.fr");
-
-        require ('../views/personne.php');
-    }*/
-
     public static function createEleve() {
         $liste_classes = ModelClasse::getSections();
         $liste_groupes = ModelClasse::getGroupes();
@@ -30,7 +23,7 @@ class ControllerPersonne {
     public static function createdEleve() {
 
         if ($_POST['password'] != $_POST['password_confirm']) {
-            self::createEleve();
+            header('Location: routeur.php?controller=personne&&action=createEleve');
         }
         else {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -38,10 +31,10 @@ class ControllerPersonne {
             $cr = $eleve->save();
 
             if ($cr == 1) {
-                self::createEleve();
+                header('Location: routeur.php?controller=personne&&action=createEleve');
             }
             else {
-                self::connect();
+                header('Location: routeur.php?controller=personne&&action=connect');
             }
         }
     }
@@ -49,19 +42,18 @@ class ControllerPersonne {
     public static function createdProfesseur() {
 
         if ($_POST['password'] != $_POST['password_confirm']) {
-            self::createProfesseur();
+            header('Location: routeur.php?controller=personne&&action=createProfesseur');
         }
         else {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $professeur = new ModelProfesseur($_POST['codeINE'], $_POST['email'], $_POST['nom'], $_POST['prenom'], $password);
             $cr = $professeur->save();
-            var_dump($cr);
 
             if ($cr == 1) {
                 header('Location: routeur.php?controller=personne&&action=createProfesseur');
             }
             else {
-                self::connect();
+                header('Location: routeur.php?controller=personne&&action=connect');
             }
         }
     }
@@ -74,29 +66,59 @@ class ControllerPersonne {
         $personne = ModelPersonne::chercherPersonne($_POST['email']);
 
         if (!$personne) {
-            self::connect();
+            header('Location: routeur.php?controller=personne&&action=connect');
         }
         else {
             if (is_null($personne)) {
-                self::connect();
+                header('Location: routeur.php?controller=personne&&action=connect');
             }
             else {
                 if (password_verify($_POST['password'], $personne->getMdp())) {
+                    //session_start();
                     $_SESSION['nom'] = $personne->getNom();
                     $_SESSION['prenom'] = $personne->getPrenom();
+                    $_SESSION['codeINE'] = $personne->getCodeINE();
                     $_SESSION['email'] = $_POST['email'];
 
-                    if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
-                        header('Location: ../views/eleve/accueil.php');
-                    }
-                    else {
-                        header('Location: ../views/professeur/accueil.php');
-                    }
+                    var_dump($_SESSION['nom']);
+                    var_dump($_SESSION['codeINE']);
+                    var_dump($_SESSION['email']);
+
+                    header('Location: routeur.php?controller=personne&&action=accueil');
                 }
                 else {
-                    self::connect();
+                    header('Location: routeur.php?controller=personne&&action=connect');
                 }
             }
         }
     }
+
+    public static function accueil() {
+
+        if (isset($_SESSION['email'])) {
+            if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
+                if (isset($_SESSION['idToeicChoisi'])) {
+                    unset($_SESSION['idToeicChoisi']);
+                }
+                require ('../views/eleve/accueil.php');
+            }
+            else {
+                require ('../views/professeur/accueil.php');
+            }
+        }
+        else {
+            require ('../views/error.php');
+        }
+
+    }
+
+    public static function deconnect() {
+
+        if (isset($_SESSION)) {
+            session_destroy();
+            header('Location: routeur.php?controller=personne&&action=connect');
+        }
+    }
 }
+
+//session_destroy();
