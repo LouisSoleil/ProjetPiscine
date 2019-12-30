@@ -21,19 +21,14 @@ abstract class ModelRepondre
         }
     }
 
-    public function getScore() {
-    	return $this-> score;
+    public function get_toeic()
+    {
+        $requete = "SELECT DISTINCT idTOEIC FROM repondre";
+        $rep = Model::$pdo->query($requete);
+        $values = array ('idTOEIC');
+        $rep->execute($values);
+        return $rep;
     }
-
-	public function get_toeic() {
-		$requete = "SELECT * FROM Toeic";
-		$req_prep = Model::$pdo->prepare($requete);
-        $values = array(
-            "idTOEIC_tag" => $idTOEIC
-        );
-        $req_prep->execute($values);
-        return $req_prep->fetchColumn();
-	}
 
 	public function get_partie(){
 		$requete = "SELECT DISTINCT idPartie, libellePartie FROM souspartie";
@@ -43,7 +38,6 @@ abstract class ModelRepondre
         return $rep;
 	}
 
-
 	public function get_allreponses(){
 		$requete = "SELECT date, score FROM repondre";
         $rep = Model::$pdo->query($requete);
@@ -52,11 +46,22 @@ abstract class ModelRepondre
         return $rep;
     }
 
-    public function get_allreponses2(){
-		$requete = "SELECT idTOEIC, score FROM repondre";
+    
+    public function get_listening()
+    {
+        $requete = "SELECT DISTINCT date, score FROM repondre where idPartie = 0";
         $rep = Model::$pdo->query($requete);
-        $value = array ('idTOEIC' => 'score');
-        $rep->execute($value);
+        $values = array ('date' => 'score');
+        $rep->execute($values);
+        return $rep;
+    }
+
+    public function get_reading()
+    {
+        $requete = "SELECT DISTINCT date, score FROM repondre where idPartie = 1";
+        $rep = Model::$pdo->query($requete);
+        $values = array ('date' => 'score');
+        $rep->execute($values);
         return $rep;
     }
 

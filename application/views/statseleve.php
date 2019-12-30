@@ -1,45 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta  charset="UTF-8">
     <title>Vos statistiques</title>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/stats.css"></link>
+	<script src="../assets/stats.js" type="text/javascript"></script>
+	<style>
+		body
+		{ 
+		    margin: 48px; 
+		    font-size:100%;
+		    font-family: arial, sans;
+		    background-color: #FFF;
+		}
 
-    <script>
-	window.onload = function () {
-	 
-	var chart = new CanvasJS.Chart("chartContainer", {
-		title: {
-			text: "Evolution du score"
-		},
-		axisY: {
-			title: "Score"
-		},
-		data: [{
-			type: "line",
-			dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-		}]
-	});
-	chart.render();
-	 
-	}
-	</script>
+		.legal
+		{
+		    text-align:center;
+		    font-size: 80%;
+		    color: #666;
+		}
+	</style>
 </head>
+
 <body>
-	<div class="row">
-		<h1>Vos Statistiques</h1>
-		<br>
-		<div id="chartContainer" style="height: 370px; width: 50%;"></div>
-		<br>
-		<label for="partie">Sous-partie</label> :
-	    <SELECT name="partie">
-	        <?php
-	        foreach ($part as $value) {
-	            echo "<OPTION value = '$value[0]'>$value[1]</OPTION>";
-	        }
-	        ?>
-	    </SELECT>
-	    <a href ="routeur.php?controller=stats&action=afficherAllreponses2"><button type="button" class="btn btn-success btn-lg btn-block">Accéder</button></a>
+	<div id="content">	
+			<h1>Vos Statistiques</h1>
+			<br>
+		<div id="tabs">
+		    <ul>
+		        <li><a href="#" class="selected"  rel="../controllers/routeur.php?controller=stats&action=afficherAllreponses" onclick="loadit(this)">Mes statistiques</a></li>
+		        <li><a href="#" rel="../controllers/routeur.php?controller=stats&action=afficherListening" onClick="loadit(this)">Partie listening</a></li>
+		        <li><a href="#" rel="../controllers/routeur.php?controller=stats&action=afficherReading" onClick="loadit(this)">Partie reading</a></li> 
+		        <li><a href="#" rel="../controllers/routeur.php?controller=stats&action=affichertoeic" onClick="loadit(this)">Par TOEIC</a></li> 
+		    </ul>
+		    <iframe id="container"></iframe>
+		</div>
 	</div>
 </body>
 </html>
