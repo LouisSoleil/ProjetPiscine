@@ -19,7 +19,7 @@ if (isset($_SESSION['email'])) {
 
     echo "<br>";
     echo "<a href='routeur.php?controller=toeic&&action=take'>" . "Passer un toeic" . '</a></br>';
-    echo "<a href='../views/eleve/profil.php'>" . "Accéder au profil" . '</a></br>';
+    echo "<a href='routeur.php?controller=personne&&action=profil'>" . "Accéder au profil" . '</a></br>';
 
     echo '<input type="button" value="Déconnexion" onclick="javascript:location.href=\'routeur.php?controller=personne&&action=deconnect\'">';
 

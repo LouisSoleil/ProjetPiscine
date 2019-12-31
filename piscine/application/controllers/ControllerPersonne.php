@@ -10,71 +10,165 @@ require_once ('../models/ModelClasse.php');
 class ControllerPersonne {
 
     public static function createEleve() {
+
         $liste_classes = ModelClasse::getSections();
         $liste_groupes = ModelClasse::getGroupes();
 
-        require('../views/eleve/create.php');
+        unset($erreurs);
+
+        if (!isset($_POST['forminscription_eleve'])) {
+            require ('../views/eleve/create.php');
+        }
+        else {
+            $erreurs = array();
+
+            $nom = htmlspecialchars($_POST['nom']);
+            $prenom = htmlspecialchars($_POST['prenom']);
+            $ine = htmlspecialchars($_POST['codeINE']);
+            $email = htmlspecialchars($_POST['email']);
+            $pwd = $_POST['password'];
+            $pwdBis = $_POST['password_confirm'];
+
+            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $nom)) {
+                $erreurs['nom'] = "Erreur dans la saisie du nom";
+            } else {
+                $nom = strtoupper($nom);
+            }
+
+            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $prenom)) {
+                $erreurs['prenom'] = "Erreur dans la saisie du prénom";
+            } else {
+                $prenom = ucfirst($prenom);
+            }
+
+            if (strlen($ine) != 11) {
+                $erreurs['codeINE'] = "Le code INE n'a pas le bon nombre de caractères (11 caractères requis)";
+            }
+
+            if (!preg_match("/^[a-z]+.[a-z]+@etu.umontpellier.fr$/", $email)) {
+                $erreurs['email'] = "L'adresse mail n'est pas de la bonne forme";
+            } else {
+                $personne = ModelPersonne::chercherPersonne($email);
+
+                if ($personne) {
+                    $erreurs['email'] = "Ce mail est déjà affilié à un compte";
+                }
+            }
+
+            if ($pwd != $pwdBis)
+            {
+                $erreurs['pwd'] = "Vos mots de passe ne correspondent pas";
+            } else {
+                $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+            }
+
+            if (empty($erreurs)) {
+                $eleve = new ModelEleve($ine, $email, $nom, $prenom, $pwd, $_POST['classe'], $_POST['annee'], $_POST['groupe']);
+                $cr = $eleve->save();
+
+                if ($cr == 1) {
+                    $erreurs['codeINE'] = "Ce codeINE existe déjà";
+                    require ('../views/eleve/create.php');
+                }
+                else {
+                    header('Location: routeur.php?controller=personne&&action=connect');
+                }
+
+            }
+            else {
+                require ('../views/eleve/create.php');
+            }
+        }
+
     }
 
     public static function createProfesseur() {
-        require('../views/professeur/create.php');
-    }
 
-    public static function createdEleve() {
+        unset($erreurs);
 
-        if ($_POST['password'] != $_POST['password_confirm']) {
-            header('Location: routeur.php?controller=personne&&action=createEleve');
+        if (!isset($_POST['forminscription_prof'])) {
+            require('../views/professeur/create.php');
         }
         else {
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $eleve = new ModelEleve($_POST['codeINE'], $_POST['email'], $_POST['nom'], $_POST['prenom'], $password, $_POST['classe'], $_POST['annee'], $_POST['groupe']);
-            $cr = $eleve->save();
+            $erreurs = array();
 
-            if ($cr == 1) {
-                header('Location: routeur.php?controller=personne&&action=createEleve');
+            $nom = htmlspecialchars($_POST['nom']);
+            $prenom = htmlspecialchars($_POST['prenom']);
+            $ine = htmlspecialchars($_POST['codeINE']);
+            $email = htmlspecialchars($_POST['email']);
+            $pwd = $_POST['password'];
+            $pwdBis = $_POST['password_confirm'];
+
+            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $nom)) {
+                $erreurs['nom'] = "Erreur dans la saisie du nom";
+            } else {
+                $nom = strtoupper($nom);
+            }
+
+            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $prenom)) {
+                $erreurs['prenom'] = "Erreur dans la saisie du prénom";
+            } else {
+                $prenom = ucfirst($prenom);
+            }
+
+            if (strlen($ine) != 11) {
+                $erreurs['codeINE'] = "Le code INE n'a pas le bon nombre de caractères (11 caractères requis)";
+            }
+
+            if (!preg_match("/^[a-z]+.[a-z]+@umontpellier.fr$/", $email)) {
+                $erreurs['email'] = "L'adresse mail n'est pas de la bonne forme";
+            } else {
+                $personne = ModelPersonne::chercherPersonne($email);
+
+                if ($personne) {
+                    $erreurs['email'] = "Ce mail est déjà affilié à un compte";
+                }
+            }
+
+            if ($pwd != $pwdBis)
+            {
+                $erreurs['pwd'] = "Vos mots de passe ne correspondent pas";
+            } else {
+                $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+            }
+
+            if (empty($erreurs)) {
+                $professeur = new ModelProfesseur($ine, $email, $nom, $prenom, $pwd);
+                $cr = $professeur->save();
+
+                if ($cr == 1) {
+                    $erreurs['codeINE'] = "Ce codeINE existe déjà";
+                    require('../views/professeur/create.php');
+                }
+                else {
+                    header('Location: routeur.php?controller=personne&&action=connect');
+                }
+
             }
             else {
-                header('Location: routeur.php?controller=personne&&action=connect');
-            }
-        }
-    }
-
-    public static function createdProfesseur() {
-
-        if ($_POST['password'] != $_POST['password_confirm']) {
-            header('Location: routeur.php?controller=personne&&action=createProfesseur');
-        }
-        else {
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $professeur = new ModelProfesseur($_POST['codeINE'], $_POST['email'], $_POST['nom'], $_POST['prenom'], $password);
-            $cr = $professeur->save();
-
-            if ($cr == 1) {
-                header('Location: routeur.php?controller=personne&&action=createProfesseur');
-            }
-            else {
-                header('Location: routeur.php?controller=personne&&action=connect');
+                require('../views/professeur/create.php');
             }
         }
     }
 
     public static function connect() {
-        require ('../views/connexion.php');
-    }
 
-    public static function connected() {
-        $personne = ModelPersonne::chercherPersonne($_POST['email']);
+        unset($erreurs);
 
-        if (!$personne) {
-            header('Location: routeur.php?controller=personne&&action=connect');
+        if (!isset($_POST['formconnexion'])) {
+            require('../views/connexion.php');
         }
         else {
-            if (is_null($personne)) {
-                header('Location: routeur.php?controller=personne&&action=connect');
+
+            $erreurs = array();
+            $personne = ModelPersonne::chercherPersonne($_POST['email']);
+
+            if (!$personne) {
+                $erreurs['email'] = "Ce mail n'existe pas";
+                require('../views/connexion.php');
             }
             else {
                 if (password_verify($_POST['password'], $personne->getMdp())) {
-                    //session_start();
                     $_SESSION['nom'] = $personne->getNom();
                     $_SESSION['prenom'] = $personne->getPrenom();
                     $_SESSION['codeINE'] = $personne->getCodeINE();
@@ -87,7 +181,8 @@ class ControllerPersonne {
                     header('Location: routeur.php?controller=personne&&action=accueil');
                 }
                 else {
-                    header('Location: routeur.php?controller=personne&&action=connect');
+                    $erreurs['pwd'] = "Mot de passe incorrect";
+                    require('../views/connexion.php');
                 }
             }
         }
@@ -109,14 +204,63 @@ class ControllerPersonne {
         else {
             require ('../views/error.php');
         }
+    }
 
+    public static function profil() {
+        if (isset($_SESSION['email'])) {
+            if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
+                require ('../views/eleve/profil.php');
+            }
+            else {
+                require ('../views/professeur/profil.php');
+            }
+        }
+        else {
+            require ('../views/error.php');
+        }
     }
 
     public static function deconnect() {
 
-        if (isset($_SESSION)) {
+        if (!empty($_SESSION)) {
             session_destroy();
             header('Location: routeur.php?controller=personne&&action=connect');
+        }
+        else {
+            require ('../views/error.php');
+        }
+    }
+
+    public static function update() {
+
+        if (!isset($_POST['formupdate'])) {
+            require ('../views/eleve/profil_modify.php');
+        }
+        else {
+            $taillemax = 2097152;
+            $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+
+            if ($_FILES['photo']['size'] <= $taillemax) {
+                $extensionUpload = strtolower(substr(strrchr($_FILES['photo']['name'],'.'),1));
+
+                if (in_array($extensionUpload, $extensionsValides)) {
+                    $chemin = "../../membres/photos/".$_SESSION['codeINE'].".".$extensionUpload;
+                    $resultat = move_uploaded_file($_FILES['photo']['tmp_name'],$chemin);
+
+                    if ($resultat) {
+                        header('Location: routeur.php?controller=personne&&action=profil');
+                    }
+                    else {
+                        $erreur = "Erreur 3";
+                    }
+                }
+                else {
+                    $erreur = "Erreur 2";
+                }
+            }
+            else {
+                $erreur = "Erreur 1";
+            }
         }
     }
 }

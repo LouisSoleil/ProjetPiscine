@@ -9,40 +9,38 @@
 <h3> S'inscrire en tant qu'élève</h3>
 
 
-<form method="post" action="routeur.php?controller=personne&&action=createdEleve">
-    <fieldset>
-        <legend><b></b></legend>
+<form method="post" action="routeur.php?controller=personne&&action=createEleve">
         <p>
 
             <label for="nom">Nom</label> :
-            <input type="text" name="nom" id="nom" required/>
+            <input type="text" name="nom" value="<?php if(!isset($erreurs['nom']) && isset($nom)) { echo $nom; } ?>" required/>
             <br>
 
             <label for="prenom">Prénom</label> :
-            <input type='text' name="prenom" id="prenom" required/>
+            <input type='text' name="prenom" value="<?php if(!isset($erreurs['prenom']) && isset($prenom)) { echo $prenom; } ?>" required/>
             <br>
 
             <label for="email">Adresse mail</label> :
-            <input type='text' name="email" id="email" required/>
+            <input type='email' name="email" value="<?php if(!isset($erreurs['email']) && isset($email)) { echo $email; } ?>" required/>
             <br>
 
             <label for="codeINE">Code INE</label> :
-            <input type='text' name="codeINE" id="codeINE" required/>
+            <input type='text' name="codeINE" value="<?php if(!isset($erreurs['codeINE']) && isset($ine)) { echo $ine; } ?>" required/>
             <br>
 
             <label for="password">Mot de passe</label> :
-            <input type='password' name="password" id="password" required/>
+            <input type='password' name="password" required/>
             <br>
 
             <label for="password_confirm">Confirmation du mot de passe</label> :
-            <input type='password' name="password_confirm" id="password_confirm" required/>
+            <input type='password' name="password_confirm" required/>
             <br>
 
             <label for="classe">Classe</label> :
             <SELECT name="classe">
                 <?php
                 foreach ($liste_classes as $value) {
-                    echo "<OPTION>$value</OPTION>";
+                    echo "<OPTION value='$value' ".(($_POST['classe'] == $value) ? "selected" : "").">$value</OPTION>";
                 }
                 ?>
             </SELECT>
@@ -50,9 +48,11 @@
 
             <label for="annee">Année</label> :
             <SELECT name="annee">
-                <OPTION value="3">3</OPTION>
-                <OPTION value="4">4</OPTION>
-                <OPTION value="5">5</OPTION>
+                <?php
+                for ($i = 3; $i <= 5; $i++) {
+                    echo "<OPTION value='$i' ".(($_POST['annee'] == $i) ? "selected" : "").">$i</OPTION>";
+                }
+                ?>
             </SELECT>
             <br>
 
@@ -60,7 +60,7 @@
             <SELECT name="groupe">
                 <?php
                 foreach ($liste_groupes as $value) {
-                    echo "<OPTION>$value</OPTION>";
+                    echo "<OPTION value='$value' ".(($_POST['groupe'] == $value) ? "selected" : "").">$value</OPTION>";
                 }
                 ?>
             </SELECT>
@@ -69,12 +69,18 @@
 
         </p>
         <p>
-            <input type="submit" value="S'inscrire" />
+            <input type="submit" name="forminscription_eleve" value="S'inscrire" />
         </p>
-    </fieldset>
 </form>
 
-<input type='hidden' name='action' value='createdEleve'>
+<?php
+
+if (isset($erreurs)) {
+    foreach ($erreurs as $value) {
+        echo $value."<br>";
+    }
+}
+?>
 
 <?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Se connecter".'</a></br>';?>
 

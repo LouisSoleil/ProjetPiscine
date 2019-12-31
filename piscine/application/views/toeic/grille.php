@@ -8,7 +8,7 @@
     <title>Passer le toeic</title>
 </head>
 
-<body onload="DemarrerChrono();">
+<body onload="DemarrerChrono()">
 
 <h3>TOEIC</h3>
 

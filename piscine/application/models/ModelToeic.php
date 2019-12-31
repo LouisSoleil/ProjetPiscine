@@ -351,8 +351,6 @@ class ModelToeic {
         }
 
         return $req_prep->fetchAll()[0]['valeur'];
-
-
     }
 }
 

@@ -1,11 +1,4 @@
-<?php
-
-if (isset($_SESSION)) {
-    unset($_SESSION);
-}
-
-//var_dump($_SESSION);
-?>
+<?php unset($_SESSION); ?>
 
 <!DOCTYPE html>
 <html>
@@ -18,26 +11,33 @@ if (isset($_SESSION)) {
 <h3>Connexion</h3>
 
 
-<form method="post" action="routeur.php?controller=personne&&action=connected">
+<form method="post" action="routeur.php?controller=personne&&action=connect">
     <fieldset>
         <legend><b></b></legend>
         <p>
             <label for="email">Adresse mail</label> :
-            <input type="text" name="email" id="email" required/>
+            <input type="email" name="email" value="<?php if(!isset($erreurs['email']) && isset($_POST['email'])) { echo $_POST['email']; } ?>" required/>
             <br>
 
             <label for="password">Mot de passe</label> :
-            <input type='password' name="password" id="password" required/>
+            <input type='password' name="password" required/>
             <br>
         </p>
         <p>
-            <input type="submit" value="Se connecter" />
+            <input type="submit" name="formconnexion" value="Se connecter" />
         </p>
     </fieldset>
 </form>
 
-<input type='hidden' name='action' value='connected'>
+<?php
 
+if (isset($erreurs)) {
+    foreach ($erreurs as $value) {
+        echo $value."<br>";
+    }
+}
+?>
+<br>
 <input type="button" value="S'inscrire en tant qu'élève" onclick="javascript:location.href='routeur.php?controller=personne&&action=createEleve'">
 <input type="button" value="S'inscrire en tant que professeur" onclick="javascript:location.href='routeur.php?controller=personne&&action=createProfesseur'">
 
