@@ -1,5 +1,5 @@
 <?php
 
-$a = "salut";
+$a = "a-r";
 
-echo ucfirst($a);
+echo htmlspecialchars($a);

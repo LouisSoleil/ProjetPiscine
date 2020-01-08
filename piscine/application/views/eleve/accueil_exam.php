@@ -30,8 +30,6 @@
                 foreach ($toeics as $value) {
                     echo '<button type="submit" name="toeic" value="'.$value['IdTOEIC'].'">'.$value['LibelleTOEIC'].'</button><br><br>';
                 }
-
-
             }
 
             ?>

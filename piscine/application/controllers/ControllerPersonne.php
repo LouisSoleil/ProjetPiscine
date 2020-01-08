@@ -29,13 +29,13 @@ class ControllerPersonne {
             $pwd = $_POST['password'];
             $pwdBis = $_POST['password_confirm'];
 
-            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $nom)) {
+            if (!preg_match("/^[a-zA-Z]+-?[a-zA-Z]+$/", $nom)) {
                 $erreurs['nom'] = "Erreur dans la saisie du nom";
             } else {
                 $nom = strtoupper($nom);
             }
 
-            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $prenom)) {
+            if (!preg_match("/^[a-zA-Z]+-?[a-zA-Z]+$/", $prenom)) {
                 $erreurs['prenom'] = "Erreur dans la saisie du prénom";
             } else {
                 $prenom = ucfirst($prenom);
@@ -45,7 +45,7 @@ class ControllerPersonne {
                 $erreurs['codeINE'] = "Le code INE n'a pas le bon nombre de caractères (11 caractères requis)";
             }
 
-            if (!preg_match("/^[a-z]+.[a-z]+@etu.umontpellier.fr$/", $email)) {
+            if (!preg_match("/^[a-z]+-?[a-z]+\.[a-z]+-?[a-z]+@etu\.umontpellier\.fr$/", $email)) {
                 $erreurs['email'] = "L'adresse mail n'est pas de la bonne forme";
             } else {
                 $personne = ModelPersonne::chercherPersonne($email);
@@ -99,23 +99,32 @@ class ControllerPersonne {
             $pwd = $_POST['password'];
             $pwdBis = $_POST['password_confirm'];
 
-            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $nom)) {
+            if (!preg_match("/^[a-zA-Z]+-?[a-zA-Z]+$/", $nom)) {
                 $erreurs['nom'] = "Erreur dans la saisie du nom";
             } else {
                 $nom = strtoupper($nom);
             }
 
-            if (!preg_match("/^[a-z|A-Z]{1,55}$/", $prenom)) {
+            if (strlen($nom) > 255) {
+                $erreurs['nom'] = ((isset($erreurs['nom'])) ? $erreurs['nom'] : "")."<br>"."Le nom saisi est trop long";
+            }
+
+
+            if (!preg_match("/^[a-zA-Z]+-?[a-zA-Z]+$/", $prenom)) {
                 $erreurs['prenom'] = "Erreur dans la saisie du prénom";
             } else {
                 $prenom = ucfirst($prenom);
+            }
+
+            if (strlen($prenom) > 255) {
+                $erreurs['prenom'] = ((isset($erreurs['prenom'])) ? $erreurs['prenom'] : "")."<br>"."Le prénom saisi est trop long";
             }
 
             if (strlen($ine) != 11) {
                 $erreurs['codeINE'] = "Le code INE n'a pas le bon nombre de caractères (11 caractères requis)";
             }
 
-            if (!preg_match("/^[a-z]+.[a-z]+@umontpellier.fr$/", $email)) {
+            if (!preg_match("/^[a-z]+-?[a-z]+\.[a-z]+-?[a-z]+@umontpellier\.fr$/", $email)) {
                 $erreurs['email'] = "L'adresse mail n'est pas de la bonne forme";
             } else {
                 $personne = ModelPersonne::chercherPersonne($email);
@@ -143,7 +152,6 @@ class ControllerPersonne {
                 else {
                     header('Location: routeur.php?controller=personne&&action=connect');
                 }
-
             }
             else {
                 require('../views/professeur/create.php');
@@ -174,9 +182,7 @@ class ControllerPersonne {
                     $_SESSION['codeINE'] = $personne->getCodeINE();
                     $_SESSION['email'] = $_POST['email'];
 
-                    var_dump($_SESSION['nom']);
-                    var_dump($_SESSION['codeINE']);
-                    var_dump($_SESSION['email']);
+                    var_dump($_SESSION);
 
                     header('Location: routeur.php?controller=personne&&action=accueil');
                 }
