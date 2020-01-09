@@ -113,49 +113,40 @@ abstract class ModelPersonne {
         return $req_prep->fetchColumn();
     }
 
-    public static function update($codeINE, $new_codeINE, $new_email, $new_nom, $new_prenom, $new_password = NULL, $new_classe = NULL, $new_annee = NULL, $new_groupe = NULL) {
-        
-        
-        $requete = "UPDATE Personne SET codeINE = :new_codeINE_tag, email = :new_email_tag, nom = :new_nom_tag, prenom = :new_prenom_tag";
-        
-        if (!is_null($new_password)) {
-            $requete .= ",password = :new_password_tag";
-        }
-        if (!is_null($new_classe)) {
-            $requete .= ",classe = :new_classe_tag";
-        }
-        if (!is_null($new_annee)) {
-            $requete .= ",annee = :new_annee_tag";
-        }
-        if (!is_null($new_groupe)) {
-            $requete .= ",groupe = :new_groupe_tag";
-        }
-        
-        $requete .= "WHERE codeINE = :codeINE_tag";
+    public static function update($data) {
 
-        $req_prep = Model::$pdo->prepare($requete);
+        $values = array();
 
-        $values = array(
-            "codeINE_tag" => $codeINE,
-            "new_codeINE_tag" => $new_codeINE,
-            "new_email_tag" => $new_email,
-            "new_nom_tag" => $new_nom,
-            "new_prenom_tag" => $new_prenom
-        );
+        $requete = "UPDATE Personne SET";
 
-        if (!is_null($new_password)) {
-            $values['new_password_tag'] = $new_password;
-        }
-        if (!is_null($new_classe)) {
-            $values['new_classe_tag'] = $new_classe;
-        }
-        if (!is_null($new_annee)) {
-            $values['new_annee_tag'] = $new_annee;
-        }
-        if (!is_null($new_groupe)) {
-            $values['new_groupe_tag'] = $new_groupe;
+        foreach ($data as $key => $value) {
+            $tag = "$key"."_tag";
+
+            if ($key != "codeINE") {
+                $colonne = substr($key,4);
+                $requete .= " $colonne = :$tag,";
+            }
+            $values[$tag] = $value;
         }
 
-        $req_prep->execute($values);
+        $requete = substr($requete,0,-1);
+
+        $requete .= " WHERE codeINE = :codeINE_tag";
+
+        var_dump($requete);
+        var_dump($values);
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
     }
+
+    public static function updatePhoto() {
+
+    }
+
 }

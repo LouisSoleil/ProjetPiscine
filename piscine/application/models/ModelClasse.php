@@ -27,7 +27,7 @@ class ModelClasse {
         $i = 0;
 
         while ($data = $rep->fetch()) {
-            $res[$i] = $data['numGroupe']/*." - ".$data['libelleGroupe']*/;
+            $res[$i] = /*$data['numGroupe']." - ".*/$data['libelleGroupe'];
             $i++;
         }
 
@@ -47,5 +47,55 @@ class ModelClasse {
         $req_prep->execute($values);
 
         return $req_prep->fetchColumn();
+    }
+
+    public static function getClasseByCodeINE($codeINE) {
+        $requete = "SELECT c.libelleClasse, c.annee FROM Classe c JOIN Personne p ON p.idClasse = c.idClasse WHERE p.codeINE = :code_ine_tag";
+
+        $req_prep = Model::$pdo->prepare($requete);
+
+        $values = array (
+            "code_ine_tag" => $codeINE
+        );
+
+        $req_prep->execute($values);
+        $res = $req_prep->fetchAll();
+
+        return $res[0]['libelleClasse'].$res[0]['annee'];
+    }
+
+    public static function getGroupeById($codeINE) {
+        $requete = "SELECT g.numGroupe, g.libelleGroupe FROM Groupe g JOIN Personne p ON p.numGroupe = g.numGroupe WHERE p.codeINE = :code_ine_tag";
+
+        $req_prep = Model::$pdo->prepare($requete);
+
+        $values = array (
+            "code_ine_tag" => $codeINE
+        );
+
+        $req_prep->execute($values);
+        $res = $req_prep->fetchAll();
+
+        return $res[0]['libelleGroupe'];
+    }
+
+    public static function getNumGroupeByLibelle($libelle) {
+
+        $requete = "SELECT numGroupe FROM Groupe WHERE libelleGroupe = :libelle_tag";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+
+            $values = array (
+                "libelle_tag" => $libelle
+            );
+
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+        return $req_prep->fetchAll()[0]['numGroupe'];
     }
 }

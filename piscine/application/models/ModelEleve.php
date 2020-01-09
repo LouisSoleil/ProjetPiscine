@@ -18,6 +18,7 @@ class ModelEleve extends ModelPersonne {
     public function save() {
 
         $idClasse = ModelClasse::getIdClasse($this->classe, $this->annee);
+        $numGroupe = ModelClasse::getNumGroupeByLibelle($this->groupe);
 
         $requete = "INSERT INTO Personne (codeIne, nom, prenom, email, mdp, numGroupe, idClasse) "
             . "VALUES (:codeINE_tag, :nom_tag, :prenom_tag, :email_tag, :mdp_tag, :numGroupe_tag, :id_classe_tag)";
@@ -30,7 +31,7 @@ class ModelEleve extends ModelPersonne {
                 "prenom_tag" => $this->prenom,
                 "email_tag" => $this->email,
                 "mdp_tag" => $this->mdp,
-                "numGroupe_tag" => $this->groupe,
+                "numGroupe_tag" => $numGroupe,
                 "id_classe_tag" => $idClasse
             );
 
