@@ -30,6 +30,13 @@ abstract class ModelRepondre
         return $rep;
     }
 
+    public function get_1toeic()
+    {
+        $requete = "SELECT * FROM repondre ";
+        $rep = Model::$pdo->query($requete);
+        return $rep->fetchAll();
+    }
+
 	public function get_partie(){
 		$requete = "SELECT DISTINCT idPartie, libellePartie FROM souspartie";
 		$rep = Model::$pdo->query($requete);
@@ -39,30 +46,24 @@ abstract class ModelRepondre
 	}
 
 	public function get_allreponses(){
-		$requete = "SELECT date, score FROM repondre";
+		$requete = "SELECT codeINE, `date`, idToeic, SUM(score) FROM repondre GROUP BY codeINE, `date`, idToeic";
         $rep = Model::$pdo->query($requete);
-        $value = array ('date' => 'score');
-        $rep->execute($value);
         return $rep;
     }
 
     
     public function get_listening()
     {
-        $requete = "SELECT DISTINCT date, score FROM repondre where idPartie = 0";
+        $requete = "SELECT codeINE, `date`, idToeic, IdPartie, SUM(score) FROM repondre WHERE IdPartie = '1' OR IdPartie = '2' OR IdPartie = '3' GROUP BY codeINE, `date`, idToeic";
         $rep = Model::$pdo->query($requete);
-        $values = array ('date' => 'score');
-        $rep->execute($values);
         return $rep;
     }
 
     public function get_reading()
     {
-        $requete = "SELECT DISTINCT date, score FROM repondre where idPartie = 1";
+        $requete = "SELECT codeINE, `date`, idToeic, IdPartie, SUM(score) FROM repondre WHERE IdPartie = '4' OR IdPartie = '5' OR IdPartie = '6' OR IdPartie = '7' GROUP BY codeINE, `date`, idToeic";
         $rep = Model::$pdo->query($requete);
-        $values = array ('date' => 'score');
-        $rep->execute($values);
-        return $rep;
+        return $rep->fetchAll();
     }
 
 

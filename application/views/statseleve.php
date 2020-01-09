@@ -25,14 +25,14 @@
 
 <body>
 	<div id="content">	
-			<h1>Vos Statistiques</h1>
-			<br>
+		<h1>Vos Statistiques</h1>
+		<br>
 		<div id="tabs">
 		    <ul>
 		        <li><a href="#" class="selected"  rel="../controllers/routeur.php?controller=stats&action=afficherAllreponses" onclick="loadit(this)">Mes statistiques</a></li>
 		        <li><a href="#" rel="../controllers/routeur.php?controller=stats&action=afficherListening" onClick="loadit(this)">Partie listening</a></li>
 		        <li><a href="#" rel="../controllers/routeur.php?controller=stats&action=afficherReading" onClick="loadit(this)">Partie reading</a></li> 
-		        <li><a href="#" rel="../controllers/routeur.php?controller=stats&action=affichertoeic" onClick="loadit(this)">Par TOEIC</a></li> 
+		        <li><a href="#" rel="../controllers/routeur.php?controller=stats&action=afficherTOEIC" onClick="loadit(this)">Par TOEIC</a></li> 
 		    </ul>
 		    <iframe id="container"></iframe>
 		</div>

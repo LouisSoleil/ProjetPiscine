@@ -14,9 +14,9 @@ class ControllerStats {
 
 	public function afficherAllreponses() {
 		$liste_reponses = ModelRepondre::get_allreponses();
-	    $dataPoints = array();
+		$dataPoints = array();
 	    foreach ($liste_reponses as $reponse){
-	    	$add = array("y" => $reponse['score'], "label" => $reponse['date']);
+	    	$add = array("y" => $reponse['SUM(score)'], "label" => $reponse['date']);
 		    array_push($dataPoints, $add);
 	    }
 	    require('../views/tab-stats.php');
@@ -24,22 +24,22 @@ class ControllerStats {
 
 	public function afficherListening() {
 		$liste_reponses = ModelRepondre::get_listening();
-	    $dataPoints = array();
+		$dataPoints = array();
 	    foreach ($liste_reponses as $reponse){
-	    	$add = array("y" => $reponse['score'], "label" => $reponse['date']);
+	    	$add = array("y" => $reponse['SUM(score)'], "label" => $reponse['date']);
 		    array_push($dataPoints, $add);
 	    }
-	    require('../views/tab-stats.php');
+	    require('../views/tab-listening.php');
 	}
 
 	public function afficherReading() {
 		$liste_reponses = ModelRepondre::get_reading();
 	    $dataPoints = array();
 	    foreach ($liste_reponses as $reponse){
-	    	$add = array("y" => $reponse['score'], "label" => $reponse['date']);
+	    	$add = array("y" => $reponse['SUM(score)'], "label" => $reponse['date']);
 		    array_push($dataPoints, $add);
 	    }
-	    require('../views/tab-stats.php');
+	    require('../views/tab-reading.php');
 	}
 	public function afficherTOEIC()
 	{
@@ -47,6 +47,12 @@ class ControllerStats {
 		require('../views/tab-toeic.php');
 	}
 
+	public function afficher1TOEIC()
+	{
+		$TOEIC = ModelRepondre::get_1toeic();
+		require('../views/resumeTOEIC.php');
+
+	}
 
 
 
