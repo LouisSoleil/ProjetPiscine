@@ -7,12 +7,12 @@
 
 <body>
 
-<form method="post" action="routeur.php?controller=personne&&action=update" enctype="multipart/form-data">
+<form method="post" action="routeur.php?controller=personne&&action=update2" enctype="multipart/form-data">
     <fieldset>
         <legend><b></b></legend>
         <p>
             <label for="nom">Photo</label> :
-            <input type="file" name="photo" required/>
+            <input type="file" name="photo" />
         </p>
         <p>
             <input type="submit" name="formupdate" value="Valider" />

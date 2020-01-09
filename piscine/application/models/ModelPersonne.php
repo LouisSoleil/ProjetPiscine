@@ -113,4 +113,40 @@ abstract class ModelPersonne {
         return $req_prep->fetchColumn();
     }
 
+    public static function update($data) {
+
+        $values = array();
+
+        $requete = "UPDATE Personne SET";
+
+        foreach ($data as $key => $value) {
+            $tag = "$key"."_tag";
+
+            if ($key != "codeINE") {
+                $colonne = substr($key,4);
+                $requete .= " $colonne = :$tag,";
+            }
+            $values[$tag] = $value;
+        }
+
+        $requete = substr($requete,0,-1);
+
+        $requete .= " WHERE codeINE = :codeINE_tag";
+
+        var_dump($requete);
+        var_dump($values);
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+            $req_prep->execute($values);
+
+        } catch (PDOException $e) {
+            return 1;
+        }
+    }
+
+    public static function updatePhoto() {
+
+    }
+
 }

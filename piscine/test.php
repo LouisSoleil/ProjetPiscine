@@ -1,5 +1,3 @@
 <?php
 
-$a = "a-r";
-
-echo htmlspecialchars($a);
+echo substr("abc",-1);
