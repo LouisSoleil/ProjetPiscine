@@ -10,4 +10,4 @@ else {
     echo "T'es pas nul Mathilde";
 }
 
-session_destroy();
+//session_destroy();

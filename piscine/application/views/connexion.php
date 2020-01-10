@@ -1,9 +1,11 @@
 <?php
 
-if (isset($_SESSION)) {
+if (isset($_SESSION["email"])) {
     unset($_SESSION);
+    echo "Vous êtes déjà connecté !"; //faire redirection sur accueil?
 }
 
+else{
 //var_dump($_SESSION);
 ?>
 
@@ -45,3 +47,6 @@ if (isset($_SESSION)) {
 </body>
 </html>
 
+<?php
+}
+?>

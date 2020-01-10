@@ -39,5 +39,4 @@ class ModelEleve extends ModelPersonne {
             return 1;
         }
     }
-
 }
