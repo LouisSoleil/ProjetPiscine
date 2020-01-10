@@ -2,8 +2,6 @@
 {
 	var container = document.getElementById('container');
 	container.src=element.rel;
-	var container2 = document.getElementById('container2');
-	container2.src=element.rel;
 
 	var tabs=document.getElementById('tabs').getElementsByTagName("a");
 	for (var i=0; i < tabs.length; i++)
@@ -18,10 +16,25 @@
 function startit()
 {
 	var tabs=document.getElementById('tabs').getElementsByTagName("a");
-	var tabs2=document.getElementById('tabs').getElementsByTagName("OPTION");
 	var container = document.getElementById('container');
-	var container2 = document.getElementById('container2');
+	console.log(tabs);
+	console.log(tabs.rel);
 	container.src = tabs[0].rel;
+}
+
+function startit()
+{
+	var tabs=document.getElementById('tabs').getElementsByTagName("a");
+	var container = document.getElementById('container');
+	container.src = tabs[0].rel;
+}
+
+function startit2()
+{
+	var tabs2=document.getElementById('tabs2').getElementsByTagName("form");
+	var container2 = document.getElementById('container2');
+	console.log(tabs2);
+	console.log(tabs2.rel);
 	container2.src = tabs2[0].rel;
 }
 

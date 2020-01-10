@@ -7,23 +7,24 @@
 	<script src="../assets/stats.js" type="text/javascript"></script>
 </head>
 
-<body>
+<body onload="startit2()">
 	<div id="content">
 		<h1>Par TOEIC</h1>
 		<br>
 		<label>TOEIC :</label> 
-		<div id ="tabs">
+		<div id ="tabs2">	
 			<ul>
-				<SELECT>
-		        	<?php
-		        	foreach ($liste_TOEIC as $value) {
-		        	    echo "<OPTION href ='#' rel = '../controllers/routeur.php?controller=stats&action=afficher1TOEIC' onClick='loadit(this)'>$value[0]</OPTION>";
-		        	}
-		        	?>
-	        	</SELECT>
+				<form method="post" rel ="routeur.php?controller=stats&action=afficher1TOEIC">
+		        <?php
+		        foreach ($liste_TOEIC as $num) {
+		            echo "<button type='submit' name='numTOEIC' value = $num[0] >$num[0]</button> <br>";
+		        }
+		        ?>
+				</form>
 			</ul>
-	        <iframe id="container2"></iframe>
 		</div>
+		<iframe id="container2"></iframe>
+	</div>
 	</div>
 </body>
 </html>

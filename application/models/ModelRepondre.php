@@ -30,11 +30,23 @@ abstract class ModelRepondre
         return $rep;
     }
 
-    public function get_1toeic()
+    public function get_1toeic($codeINE, $idToeic)
     {
-        $requete = "SELECT * FROM repondre ";
-        $rep = Model::$pdo->query($requete);
-        return $rep->fetchAll();
+        $requete = "SELECT * FROM repondre WHERE codeINE = :codeINE_tag AND idToeic = :idToeic_tag";
+
+        try {
+            $req_prep = Model::$pdo->prepare($requete);
+            $values = array (
+                "codeINE_tag" => $codeINE,
+                "idToeic_tag" => $idToeic
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+        $rep = $req_prep->fetchAll();
+        return $rep;
     }
 
 	public function get_partie(){

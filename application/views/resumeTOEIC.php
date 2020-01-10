@@ -1,1 +1,3 @@
-<p>coucou</p>
+<?php
+
+var_dump($TOEIC);
