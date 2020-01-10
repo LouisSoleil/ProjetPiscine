@@ -409,6 +409,10 @@ class ControllerPersonne {
         if (isset($data['new_idClasse'])) $_SESSION['classe'] = ModelClasse::getClasseByCodeINE($_SESSION['codeINE']);
         if (isset($data['new_numGroupe'])) $_SESSION['groupe'] = ModelClasse::getGroupeById($_SESSION['codeINE']);
     }
+
+    public static function handle () {
+            require('../views/professeur/accueil_toeic.php');
+    }
 }
 
 //session_destroy();

@@ -27,6 +27,7 @@ class ModelToeic {
         }
 
         $idToeic = Model::$pdo->lastInsertId();
+        var_dump($idToeic);
 
         $requete =  "INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 1, 'Oral');"
             ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 2, 'Oral');"

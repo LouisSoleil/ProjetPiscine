@@ -14,10 +14,8 @@
 		
 		<?php
 		
-			echo "<a href='routeur.php?controller=toeic&&action=activate'>" . "Activer/Désactiver un toeic" . '</a></br>';
-			echo "<a href='routeur.php?controller=toeic&&action=create'>" . "Créer toeic" . '</a></br>';
-			echo "<a href='routeur.php?controller=toeic&&action=modify'>" . "Modifier un toeic" . '</a></br>';
-			echo "<a href='routeur.php?controller=toeic&&action=delete'>" . "Supprimer un toeic" . '</a></br>';
+			echo "<a class=\"toeic\" href='routeur.php?controller=personne&&action=handle'>" . "Gérer toeic" . '</a>';
+    		echo "<a class=\"profil\" href='routeur.php?controller=personne&&action=profil'>" . "Accéder au profil" . '</a></br>';
 			
 		?>
 

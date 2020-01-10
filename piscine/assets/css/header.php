@@ -10,7 +10,7 @@
         	<tr>
     	        <td width="10%"></td>
 	            <td class="home" width="7%"> 
-                    <a href=""> <img src="../../assets/image/logo/maison.png"> </a>
+                    <a href="routeur.php?controller=personne&&action=accueil"> <img src="../../assets/image/logo/maison.png"> </a>
                 </td>
             	<td class="logoToeic" width="60%"> </td>
 	            <td class="logoProfil" width="7%">
