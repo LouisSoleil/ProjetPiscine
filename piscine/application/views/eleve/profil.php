@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html>
-<link rel=stylesheet href="../../../assets/profilCss.css" type="text/css">
+<link rel=stylesheet href="../../assets/profilCss.css" type="text/css">
 
 <head>
 
@@ -19,41 +19,28 @@
 
 
 
-<div class="leftcolumn">
-
-    <h4> MES INFORMATIONS </h4>
-
+<div class="contents">
+<fieldset>
+   <legend> <h4> MES INFORMATIONS </h4> </legend>
+   <br>
     Code INE : <?php echo $_SESSION['codeINE'] ?> <br>
-
+    <br>
     Nom : <?php echo $_SESSION['nom'] ?> <br>
-
+    <br>
     Prénom : <?php echo $_SESSION['prenom'] ?> <br>
-
+    <br>
     Email : <?php echo $_SESSION['email'] ?> <br>
-
+    <br>
     Classe : <?php echo $_SESSION['classe'] ?> <br>
-
+    <br>
     Groupe : <?php echo $_SESSION['groupe'] ?> <br>
-
-    <img width="250" src="<?php echo '../../membres/photos/'.$_SESSION['codeINE']; ?>"> <br>
-
-    <?php echo '<input type="button" value="Modifier le profil" onclick="javascript:location.href=\'routeur.php?controller=personne&&action=update\'">'; ?>
 </fieldset>
 </div>
 
-
-
-
-
-<div class="rightcolumn"> <!-- Mes stats -->
-
-    <h4>MES STATISTIQUES</h4>
-
+<div class="photo">
+<img src="<?php echo '../../membres/photos/'.$_SESSION['codeINE']; ?>"> <br>
+<?php echo '<input type="button" value="Modifier le profil" onclick="javascript:location.href=\'routeur.php?controller=personne&&action=update\'">'; ?>
 </div>
-
-
-
-
 
 </body>
 

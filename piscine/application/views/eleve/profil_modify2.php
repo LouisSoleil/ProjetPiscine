@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link rel=stylesheet href="../../../assets/profil_modify2Css.css" type="text/css">
+<link rel=stylesheet href="../../assets/profil_modify2Css.css" type="text/css">
 <head>
     <meta charset="UTF-8">
     <title>Modifier le profil</title>
