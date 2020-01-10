@@ -172,7 +172,7 @@ class ControllerStats {
             //var_dump($dataPoints);
             
             
-            if(isset($dataPoints) || count($dataPoints) != 0){
+            if(isset($dataPoints[0]) || count($dataPoints) != 0){
                 $valMax = $dataPoints[0]['y'];
                 $valMin = $dataPoints[0]['y'];
                 
