@@ -1,12 +1,28 @@
-<?php
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../assets/css/homepage.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/accueilProfCss.css">
+    <meta charset="UTF-8">
+	<title>Accueil</title>
+</head>
+<body>
 
-var_dump($_SESSION);
+	<?php include('../../assets/css/header.php'); ?>
 
-echo "Salut prof ".$_SESSION['prenom'];
-echo "<br><br>";
+<!-- 	<div class="content"> -->
+		
+		<?php
+		
+			echo "<a class=\"toeic\" href='routeur.php?controller=personne&&action=handle'>" . "Gérer toeic" . '</a>';
+    		echo "<a class=\"profil\" href='routeur.php?controller=personne&&action=profil'>" . "Accéder au profil" . '</a></br>';
+			
+		?>
 
-echo "<a href='routeur.php?controller=toeic&&action=activate'>" . "Activer/Désactiver un toeic" . '</a></br>';
-echo "<a href='routeur.php?controller=toeic&&action=create'>" . "Créer toeic" . '</a></br>';
-echo "<a href='routeur.php?controller=toeic&&action=modify'>" . "Modifier un toeic" . '</a></br>';
-echo "<a href='routeur.php?controller=toeic&&action=delete'>" . "Supprimer un toeic" . '</a></br>';
-echo '<input type="button" value="Déconnexion" onclick="javascript:location.href=\'routeur.php?controller=personne&&action=deconnect\'">';
+<!-- 	</div> -->
+
+	<?php include('../../assets/css/footer.php'); ?>
+
+</body>
+</html>
+
