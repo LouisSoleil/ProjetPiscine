@@ -1,9 +1,9 @@
 .centrage{
 	margin-left: 13%;
 	font-family: Tahoma, Geneva, sans-serif;
-  font-size: 15px;
-  letter-spacing: 0.2pt;
-  line-height: 1.4;
+	font-size: 15px;
+  	letter-spacing: 0.2pt;
+  	line-height: 1.4;
 }
 
 label[for = cocher]{
@@ -49,4 +49,3 @@ input[type=submit]{
   margin-right: 2px; 
   box-shadow:1px 1px 3px #999;
 }
-

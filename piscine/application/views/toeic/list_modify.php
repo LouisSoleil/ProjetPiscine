@@ -3,10 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/list_modifyCss.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/homepage.css">
     <title>Modifier un toeic</title>
 </head>
 
 <body>
+
+<?php include('../../assets/css/header.php'); ?>
+
+<div class="content">
+
 <h3> Modifier un toeic</h3>
 
 
@@ -32,6 +39,10 @@
 </form>
 
 <input type='hidden' name='action' value='modify'>
+
+</div>
+
+<?php include('../../assets/css/footer.php'); ?>
 
 </body>
 </html>
