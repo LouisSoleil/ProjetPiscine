@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+<link rel="stylesheet" type="text/css" href="../../assets/css/homepage.css">
 <link rel=stylesheet href="../../assets/css/profil_modify2Css.css" type="text/css">
 
 <head>
@@ -9,6 +10,10 @@
 </head>
 
 <body>
+
+    <?php include('../../assets/css/header.php'); ?>
+
+<div class="content">
 
 <h2> Modifier mon profil </h2>
 
@@ -94,6 +99,10 @@ if (isset($erreurs)) {
     }
 }
 ?>
+
+</div>
+
+<?php include('../../assets/css/footer.php'); ?>
 
 </body>
 </html>

@@ -5,23 +5,19 @@ h2{
     float: left;
     width: 60%;
     color:black;
-    margin:2%;
-    background-color: white;
-    background-color: solid;
-    opacity : 0.2%;
-    /*border-color: black;
-    border-style: solid;*/
+    margin:1%;
+    margin-top: 0%;
     margin-left: 0%;
     margin-right: 5%;
-    margin-top: 1em;
     padding: 1%;
+    padding-top: 0%;
     border-radius : 8px 8px 8px 8px;
     font-size: large;
 }
 
-img{
+.img{
     width : 20%;
-    margin-top:4%;
+    margin-top:6%;
 }
 
 .title{
