@@ -14,7 +14,7 @@
                 </td>
             	<td class="logoToeic" width="60%"> </td>
 	            <td class="logoProfil" width="7%">
-                    <a href="profil.php"> <img src="../../assets/image/logo/profil.png"> </a>
+                    <a href="routeur.php?controller=personne&&action=profil"> <img src="../../assets/image/logo/profil.png"> </a>
                 </td>
             	<td width="8%">
                     <?php  

@@ -1,0 +1,46 @@
+.bouton{
+  border-radius:12px 0 12px 0;
+  background: #f5f5f5;
+  border:none;
+  color:#555;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.2pt;
+  line-height: 1.8;
+  padding:6px 2px 6px 2px;
+  margin-right: 2px; 
+  box-shadow:1px 1px 3px #999;
+
+}
+
+.choix {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+
+  position: relative;
+  top: 4px;
+}
+
+.choix:checked {
+  border: 6px solid black;
+}
+
+.valeur{
+  float: left;
+  width: 45%;
+}
+
+.tableau{
+  float: left;
+  width: 45%;
+}

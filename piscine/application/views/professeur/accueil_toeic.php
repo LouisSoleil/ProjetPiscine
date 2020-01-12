@@ -16,10 +16,10 @@
 		
 		<?php
 		
-			echo "<a href='routeur.php?controller=toeic&&action=activate'>" . "Activer/Désactiver un toeic" . '</a></br>';
-			echo "<a href='routeur.php?controller=toeic&&action=create'>" . "Créer toeic" . '</a></br>';
-			echo "<a href='routeur.php?controller=toeic&&action=modify'>" . "Modifier un toeic" . '</a></br>';
-			echo "<a href='routeur.php?controller=toeic&&action=delete'>" . "Supprimer un toeic" . '</a></br>';
+			echo "<a class=\"activation\" href='routeur.php?controller=toeic&&action=activate'>" . "Activer/Désactiver un toeic" . '</a>';
+			echo "<a class=\"creation\" href='routeur.php?controller=toeic&&action=create'>" . "Créer toeic" . '</a>';
+			echo "<a class=\"modifier\" href='routeur.php?controller=toeic&&action=modify'>" . "Modifier un toeic" . '</a>';
+			echo "<a class=\"suppression\" href='routeur.php?controller=toeic&&action=delete'>" . "Supprimer un toeic" . '</a>';
 			
 		?>
 

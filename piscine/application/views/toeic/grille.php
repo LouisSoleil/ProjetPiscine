@@ -16,9 +16,11 @@
     <p id="chrono"></p>
 </div>
 
+<div class="centrage">
+
 <form method="post" name="test_toeic" id="test_toeic" action="routeur.php?controller=toeic&&action=correct">
-    <fieldset>
-        <legend><b></b></legend>
+
+    <div class="centrage">
         <p>
 
             <?php
@@ -43,10 +45,14 @@
         <p>
             <input type="submit" value="Valider" />
         </p>
-    </fieldset>
+
+    </div>
+
 </form>
 
 <input type='hidden' name='action' value='created'>
+
+</div>
 
 
 </body>

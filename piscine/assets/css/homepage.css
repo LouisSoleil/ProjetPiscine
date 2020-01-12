@@ -15,11 +15,11 @@ html {
 }
 
 img {
-  max-height: 22%;
+  max-height: 50px;
 }
 
 input {
-  max-height: 20%;
+  max-height: 50px;
 }
 .header {
     background-color: white;
@@ -73,11 +73,11 @@ input {
 
  	padding: 20px;
   padding-left: 60px;
-  max-height: 65%;
+  max-height: 60%;
 	width: 80%;
 
 
-  margin-top: 8%;
+  margin-top: 7%;
 	margin-bottom: 5%;
   margin-left: 5%;
 	margin-right: 5%;

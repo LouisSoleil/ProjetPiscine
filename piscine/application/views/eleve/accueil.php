@@ -19,7 +19,7 @@
     //echo "<a href='../../controllers/routeur.php?controller=toeic&&action=take'>" . "Passer un toeic" . '</a></br>';
 
     echo "<a class=\"toeic\" href='routeur.php?controller=toeic&&action=take'>" . "Passer un toeic" . '</a>';
-    echo "<a class=\"profil\" href='routeur.php?controller=personne&&action=profil'>" . "Accéder au profil" . '</a></br>';
+    echo "<a class=\"profil\" href='routeur.php?controller=personne&&action=profil'>" . "Accéder aux statistiques" . '</a></br>';
 ?>
 
 <!-- </div> -->
