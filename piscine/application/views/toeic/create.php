@@ -13,8 +13,11 @@
 
 <div class="content">
 
+
+
 <h3>TOEIC</h3>
 
+<div class="centrage">
 
 <form method="post" action="routeur.php?controller=toeic&&action=created">
 
@@ -22,8 +25,8 @@
 
             <label for="nom">Libellé du TOEIC</label> :
             <input type="text" name="name" id="name" required/>
-            <br><br><br>
-
+            <br><br>
+            
             <?php
 
             for ($i = 1; $i <= 200; $i++) {
@@ -47,7 +50,7 @@
             <input type="submit" value="Valider" />
         </p>
 </form>
-
+</div>
 <input type='hidden' name='action' value='created'>
 
 </div>
