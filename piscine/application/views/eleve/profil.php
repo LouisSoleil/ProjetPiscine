@@ -37,10 +37,9 @@
 </fieldset>
 </div>
 
-<div class="photo">
 <img src="<?php echo '../../membres/photos/'.$_SESSION['codeINE']; ?>"> <br>
 <?php echo '<input type="button" value="Modifier le profil" onclick="javascript:location.href=\'routeur.php?controller=personne&&action=update\'">'; ?>
-</div>
+
 
 </body>
 
