@@ -23,7 +23,7 @@
 	</style>
 </head>
 
-<body>
+<body onload="startit()">
 	<div id="content">	
 		<h1>Vos Statistiques</h1>
 		<br>

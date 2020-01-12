@@ -49,7 +49,7 @@ class ControllerStats {
 
 	public function afficher1TOEIC()
 	{
-		$TOEIC = ModelRepondre::get_1toeic("12345678912",$_POST['numTOEIC']);
+		$TOEIC = ModelRepondre::get_1toeic("12345678912",$_POST['numTOEIC']); 
 		require('../views/resumeTOEIC.php');
 
 	}

@@ -14,13 +14,13 @@
 		<label>TOEIC :</label> 
 		<div id ="tabs2">	
 			<ul>
-				<form method="post" rel ="routeur.php?controller=stats&action=afficher1TOEIC">
+				<select>
 		        <?php
 		        foreach ($liste_TOEIC as $num) {
-		            echo "<button type='submit' name='numTOEIC' value = $num[0] >$num[0]</button> <br>";
+		            echo "<option value = 'routeur.php?controller=stats&action=afficher1TOEIC'>$num[0]</option>";
 		        }
 		        ?>
-				</form>
+				</select>
 			</ul>
 		</div>
 		<iframe id="container2"></iframe>

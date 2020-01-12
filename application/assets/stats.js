@@ -31,11 +31,9 @@ function startit()
 
 function startit2()
 {
-	var tabs2=document.getElementById('tabs2').getElementsByTagName("form");
+	var tabs2=document.getElementById('tabs2').getElementsByTagName("option");
 	var container2 = document.getElementById('container2');
-	console.log(tabs2);
-	console.log(tabs2.rel);
-	container2.src = tabs2[0].rel;
+	console.log(tabs2);	
+	console.log(tabs2.value);
+	container2.src = tabs2[0].value;
 }
-
-window.onload = startit;
