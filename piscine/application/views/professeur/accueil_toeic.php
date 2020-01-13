@@ -1,3 +1,4 @@
+<?php if (!isset($_SESSION['email'])) require ('../error.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,6 +1,5 @@
 <?php
 
-$a = "abc";
-$hash = password_hash($a, PASSWORD_DEFAULT);
-echo $hash;
-
+require_once('application/models/ModelToeic.php');
+$a = ModelToeic::getScoreReading(25);
+echo $a;

@@ -13,12 +13,12 @@
 
 <div class="content">
 
-<h3 class="title"> S'inscrire en tant qu'élève</h3>
+    <h3 class="title"> S'inscrire en tant qu'élève</h3>
 
 
-<form method="post" action="routeur.php?controller=personne&&action=createEleve">
+    <form method="post" action="routeur.php?controller=personne&&action=createEleve">
         <p>
-            <div class="label">
+        <div class="label">
 
             <label for="nom">Nom</label> :
             <input type="text" name="nom" value="<?php if(!isset($erreurs['nom']) && isset($nom)) { echo $nom; } ?>" required/>
@@ -74,25 +74,25 @@
             </SELECT>
             <br>
 
-            </div>
+        </div>
 
 
         </p>
         <p>
             <input type="submit" class="bouton" name="forminscription_eleve" value="S'inscrire" />
         </p>
-</form>
+    </form>
 
-<?php
+    <?php
 
-if (isset($erreurs)) {
-    foreach ($erreurs as $value) {
-        echo $value."<br>";
+    if (isset($erreurs)) {
+        foreach ($erreurs as $value) {
+            echo $value."<br>";
+        }
     }
-}
-?>
+    ?>
 
-<?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Retour à la connexion".'</a></br>';?>
+    <?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Retour à la connexion".'</a></br>';?>
 
 </div>
 

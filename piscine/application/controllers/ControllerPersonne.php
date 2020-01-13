@@ -199,11 +199,16 @@ class ControllerPersonne {
     }
 
     public static function accueil() {
-        if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
-            require ('../views/eleve/accueil.php');
+        if (isset($_SESSION['email'])) {
+            if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
+                require ('../views/eleve/accueil.php');
+            }
+            else {
+                require ('../views/professeur/accueil.php');
+            }
         }
         else {
-            require ('../views/professeur/accueil.php');
+            require ('../views/error.php');
         }
     }
 
@@ -267,21 +272,24 @@ class ControllerPersonne {
 
     public static function update() {
 
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
+
         $liste_classes = ModelClasse::getSections();
         $liste_groupes = ModelClasse::getGroupes();
 
         unset($erreurs);
 
         if (!isset($_POST['formupdate'])) {
-            if (ModelPersonne::estEleve($_SESSION['email']) == 1)
+            if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
                 require('../views/eleve/profil_modify2.php');
+            }
             else {
                 require('../views/professeur/profil_modify.php');
             }
         }
         else {
 
-            $estEleve = ModelPersonne::estEleve($_SESSION['email']) == 1;
+            $estEleve = (ModelPersonne::estEleve($_SESSION['email']) == 1);
 
             $erreurs = array();
 
@@ -297,7 +305,7 @@ class ControllerPersonne {
                 $pattern="/^[a-z]+-?[a-z]+\.[a-z]+-?[a-z]+@umontpellier\.fr$/";
             }
 
-            if (!preg_match("/^[a-zA-Z]+-?[a-zA-Z]+$/", $nom) && $nom) {
+            if (!preg_match("/^[a-zA-Z]+-?[a-zA-Z]+$/", $nom)) {
                 $erreurs['nom'] = "Erreur dans la saisie du nom";
             } else {
                 $nom = strtoupper($nom);
@@ -399,6 +407,8 @@ class ControllerPersonne {
 
     public static function majSession($data) {
 
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
+
         if (isset($data['new_nom'])) $_SESSION['nom'] = $data['new_nom'];
         if (isset($data['new_prenom'])) $_SESSION['prenom'] = $data['new_prenom'];
         if (isset($data['new_codeINE'])) {
@@ -410,9 +420,36 @@ class ControllerPersonne {
         if (isset($data['new_numGroupe'])) $_SESSION['groupe'] = ModelClasse::getGroupeById($_SESSION['codeINE']);
     }
 
-    public static function handle () {
-            require('../views/professeur/accueil_toeic.php');
+    public static function handle() {
+
+        if (isset($_SESSION['email'])) {
+            require ('../views/professeur/accueil_toeic.php');
+        }
+        else {
+            require ('../views/error.php');
+        }
+    }
+
+    public static function accessStat() {
+
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
+
+        if (ModelPersonne::estEleve($_SESSION['email'])) {
+            require('../views/eleve/stats.php');
+        }
+        else {
+            $libClasse = ModelClasse::getSections();
+            $classes = array();
+
+            foreach ($libClasse as $lib){
+                for($i = 3; $i <= 5; $i++){
+                    $idClasse = intval(ModelClasse::getIdClasse($lib, $i));
+                    $add = array("idClasse" => $idClasse, "libClasse" => $lib, "annee" => $i);
+                    array_push($classes, $add);
+                }
+                //var_dump($classes);
+            }
+            require ('../views/professeur/statsprof.php');
+        }
     }
 }
-
-//session_destroy();

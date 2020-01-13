@@ -1,3 +1,4 @@
+<?php if (!isset($_SESSION['email'])) require ('../error.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,20 +14,17 @@
 
 <div class="content">
 
-
-
 <h3>TOEIC</h3>
 
-<div class="centrage">
 
-<form method="post" action="routeur.php?controller=toeic&&action=created">
+<form method="post" action="routeur.php?controller=toeic&&action=create">
 
         <p>
 
             <label for="nom">Libellé du TOEIC</label> :
             <input type="text" name="name" id="name" required/>
-            <br><br>
-            
+            <br><br><br>
+
             <?php
 
             for ($i = 1; $i <= 200; $i++) {
@@ -47,11 +45,9 @@
 
         </p>
         <p>
-            <input type="submit" value="Valider" />
+            <input type="submit" name="form_create_toeic" value="Valider" />
         </p>
 </form>
-</div>
-<input type='hidden' name='action' value='created'>
 
 </div>
 

@@ -1,38 +1,5 @@
 #div_chrono {
     position : fixed;
-    right: 5%;
-    font-size: 150%;
-}
-
-.centrage{
-	margin-left: 13%;
-	font-family: Tahoma, Geneva, sans-serif;
-  font-size: 25px;
-  letter-spacing: 0.2pt;
-  line-height: 2.5;
-}
-
-label{
-	margin-left: 10%;
-}
-
-input{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-
-  border: 2px solid #999;
-  transition: 0.2s all linear;
-  margin-right: 5px;
-
-  position: relative;
-  top: 4px;
-}
-
-input:checked {
-  border: 12px solid black;
+    right: 10%;
+    font-size: 300%;
 }

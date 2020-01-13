@@ -13,10 +13,10 @@
 
 <div class="content">
 
-<h3> S'inscrire en tant que professeur</h3>
+    <h3> S'inscrire en tant que professeur</h3>
 
 
-<form method="post" action="routeur.php?controller=personne&&action=createProfesseur">
+    <form method="post" action="routeur.php?controller=personne&&action=createProfesseur">
 
         <p>
 
@@ -53,19 +53,19 @@
         <p>
             <input class="bouton" type="submit" name="forminscription_prof" value="S'inscrire" />
         </p>
-  
-</form>
 
-<?php
+    </form>
 
-if (isset($erreurs)) {
-    foreach ($erreurs as $value) {
-        echo $value."<br>";
+    <?php
+
+    if (isset($erreurs)) {
+        foreach ($erreurs as $value) {
+            echo $value."<br>";
+        }
     }
-}
-?>
+    ?>
 
-<?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Retour à la connexion".'</a></br>';?>
+    <?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Retour à la connexion".'</a></br>';?>
 
 </div>
 

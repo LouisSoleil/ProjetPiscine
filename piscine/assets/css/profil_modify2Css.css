@@ -1,44 +1,43 @@
 input[type=text],input[type=email],input[type=password] {
-    width: 40%;
-    padding: 4px 4px;
+    width: 45%;
+    padding: 8px 8px;
     margin: 8px 0;
     box-sizing: border-box;
 }
 select{
-    width: 20%;
-    padding: 4px 4px;
-    margin: 8px 0;
+    width: 15%;
 }
 h2{
-    text-align: center;
+    margin-left: 45%;
 }
-.leftcolumn{
+  .leftcolumn{
     float: left;
-    width: 43%;
+    width: 63%;
     color:black;
-    margin:1%;
-    margin-top: 0%;
+    margin:10px 10px 10px 10px;
     margin-left: 0%;
     margin-right: 5%;
-    padding: 1%;
-    padding-top: 0%;
+    margin-top: 1em;
+    padding: 5px 20px 20px 20px;
     border-radius : 8px 8px 8px 8px;
-    font-size: large;
   }
 
   .rightcolumn{
     float: left;
-    width: 43%;
+    width: 20%;
     color:black;
-    margin:1%;
-    margin-top: 0%;
+    margin:10px 10px 10px 10px;
     margin-left: 0%;
     margin-right: 5%;
-    padding: 1%;
-    padding-top: 0%;
+    margin-top: 1em;
+    padding: 5px 20px 20px 20px;
     border-radius : 8px 8px 8px 8px;
-    font-size: large;
   }
+
+  /*form{
+    border-color: black;
+    border-style: solid;
+  }*/
 
   input[type=submit]{
         margin-left: 25%;

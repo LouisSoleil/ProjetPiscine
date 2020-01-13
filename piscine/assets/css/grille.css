@@ -1,17 +1,19 @@
+#div_chrono {
+    position : fixed;
+    right: 5%;
+    font-size: 150%;
+}
+
 .centrage{
     margin-left: 13%;
     font-family: Tahoma, Geneva, sans-serif;
-    font-size: 15px;
+    font-size: 25px;
     letter-spacing: 0.2pt;
-    line-height: 1.4;
+    line-height: 2.5;
 }
 
-label[for = cocher]{
-    margin-left: 15%;
-}
-
-label[for=nom]{
-    font-weight: bold;
+label{
+    margin-left: 10%;
 }
 
 input[type=radio]{
@@ -20,8 +22,8 @@ input[type=radio]{
     appearance: none;
 
     border-radius: 50%;
-    width: 17px;
-    height: 17px;
+    width: 25px;
+    height: 25px;
 
     border: 2px solid #999;
     transition: 0.2s all linear;
@@ -32,7 +34,7 @@ input[type=radio]{
 }
 
 input:checked {
-    border: 8px solid black;
+    border: 12px solid black;
 }
 
 input[type=submit]{

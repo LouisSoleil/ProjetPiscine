@@ -1,3 +1,4 @@
+<?php if (!isset($_SESSION['email'])) require ('../error.php'); ?>
 <!DOCTYPE html>
 <html>
 
@@ -17,7 +18,7 @@
 <h3 class="title"> Activer/Désactiver un toeic</h3>
 
 
-<form method="post" action="routeur.php?controller=toeic&&action=activated">
+<form method="post" action="routeur.php?controller=toeic&&action=activate">
         <p>
 
             <?php
@@ -39,11 +40,9 @@
         </p>
         </p>
         <p>
-            <input class="bouton" type="submit" value="Valider" />
+            <input class="bouton" name="form_activate_toeic" type="submit" value="Valider" />
         </p>
 </form>
-
-<input type='hidden' name='action' value='activated'>
 
 </div>
 

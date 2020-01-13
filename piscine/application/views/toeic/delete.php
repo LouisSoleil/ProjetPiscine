@@ -1,3 +1,4 @@
+<?php if (!isset($_SESSION['email'])) require ('../error.php'); ?>
 <!DOCTYPE html>
 <html>
 
@@ -14,31 +15,31 @@
 
 <div class="content">
 
-<h3> Supprimer un toeic</h3>
+    <h3> Supprimer un toeic</h3>
 
 
-<form method="post" action="routeur.php?controller=toeic&&action=deleted">
-    <p>
+    <form method="post" action="routeur.php?controller=toeic&&action=delete">
+        <p>
 
-        <?php
+            <?php
 
-        if (empty($toeics)) {
-            echo "Aucun toeic à afficher";
-        }
-        else {
-            foreach ($toeics as $value) {
-                echo '<button class="bouton" type="submit" name="toeic" value="'.$value['IdTOEIC'].'">'.$value['LibelleTOEIC'].'</button><br><br>';
+            if (empty($toeics)) {
+                echo "Aucun toeic à afficher";
             }
-        }
+            else {
+                foreach ($toeics as $value) {
+                    echo '<button class="bouton" type="submit" name="toeic" value="'.$value['IdTOEIC'].'">'.$value['LibelleTOEIC'].'</button><br><br>';
+                }
+            }
 
-        ?>
-    </p>
-    <p>
+            ?>
+        </p>
+        <p>
 
-    </p>
-</form>
+        </p>
+    </form>
 
-<input type='hidden' name='action' value='deleted'>
+    <input type='hidden' name='action' value='deleted'>
 
 </div>
 

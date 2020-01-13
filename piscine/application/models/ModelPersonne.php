@@ -149,4 +149,64 @@ abstract class ModelPersonne {
 
     }
 
+    public static function getEleveByClasseGroupe($idClasse,$numGroupe){
+        $requete = "SELECT codeINE, nom, prenom, email, NumGroupe FROM personne";
+
+        try{
+            if($idClasse != 0 && $numGroupe != 0){
+                $requete = "SELECT codeINE, nom, prenom, email, NumGroupe FROM personne WHERE IdClasse= :idClasse AND NumGroupe= :numGroupe";
+                $req = Model::$pdo->prepare($requete);
+                $values = array(
+                    "idClasse" => $idClasse,
+                    "numGroupe" => $numGroupe
+                );
+
+                $req->execute($values);
+            }
+            elseif($idClasse != 0){
+                $requete = "SELECT codeINE, nom, prenom, email, NumGroupe FROM personne WHERE IdClasse= :idClasse";
+                $req = Model::$pdo->prepare($requete);
+                $values = array(
+                    "idClasse" => $idClasse
+                );
+
+                $req->execute($values);
+            }
+            elseif($numGroupe != 0){
+                $requete = "SELECT codeINE, nom, prenom, email, NumGroupe FROM personne WHERE NumGroupe= :numGroupe";
+                $req = Model::$pdo->prepare($requete);
+                $values = array(
+                    "numGroupe" => $numGroupe
+                );
+
+                $req->execute($values);
+            }
+            else{
+                $req = Model::$pdo->query($requete);
+
+                $req->execute();
+            }
+
+            $res = array();
+
+            while ($data = $req->fetch()) {
+                if(self::estEleve($data['email']) == 1)
+                {
+                    $add=array(
+                        "codeINE" => $data['codeINE'],
+                        "nom" => $data['nom'],
+                        "prenom" => $data['prenom'],
+                        "email" => $data['email'],
+                        "NumGroupe" => $data['NumGroupe']
+                    );
+                    array_push($res, $add);
+                }
+            }
+
+            return $res;
+        } catch (PDOException $ex) {
+            return 1;
+        }
+    }
+
 }

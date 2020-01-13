@@ -1,22 +1,32 @@
 <?php
 
-//session_start();
-
 require_once ('../models/ModelToeic.php');
 
 class ControllerToeic {
 
     public static function create() {
 
-        if (!empty($_SESSION)) {
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
+
+        if (!isset($_POST['form_create_toeic'])) {
             require ('../views/toeic/create.php');
         }
         else {
-            require ('../views/error.php');
+            $reponses = array();
+
+            for ($i = 1; $i <= 200; $i++) {
+                $reponses[$i] = $_POST[$i];
+            }
+
+            $toeic = new ModelToeic($_POST['name']);
+
+            $toeic->save($reponses);
+
+            header('Location: routeur.php?controller=personne&&action=handle');
         }
     }
 
-    public static function created() {
+    /*public static function created() {
 
         $reponses = array();
 
@@ -27,16 +37,30 @@ class ControllerToeic {
         $toeic = new ModelToeic($_POST['name']);
 
         $toeic->save($reponses);
-    }
+    }*/
 
     public static function activate() {
 
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
+
         $toeics = ModelToeic::getToeics();
 
-        require('../views/toeic/activate.php');
+        if (!isset($_POST['form_activate_toeic'])) {
+            require('../views/toeic/activate.php');
+        }
+        else {
+            $modifs = array();
+
+            foreach ($toeics as $value) {
+                $idToeic = $value['IdTOEIC'];
+                $cr = ModelToeic::updateVisibilite($idToeic, $_POST[$idToeic]);
+            }
+
+            header('Location: routeur.php?controller=personne&&action=handle');
+        }
     }
 
-    public static function activated() {
+    /*public static function activated() {
 
         $toeics = ModelToeic::getToeics();
 
@@ -48,17 +72,26 @@ class ControllerToeic {
         }
 
         header('Location: routeur.php?controller=toeic&&action=activate');
-    }
+    }*/
 
     public static function take() {
 
-        $toeics = ModelToeic::getToeicsVisibles();
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
 
-        require ('../views/eleve/accueil_exam.php');
+        if (!isset($_POST['toeic'])) {
+            $toeics = ModelToeic::getToeicsVisibles();
+            require ('../views/eleve/accueil_exam.php');
+        }
+        else {
+            $_SESSION['idToeicChoisi'] = $_POST['toeic'];
+            require ('../views/toeic/grille.php');
+        }
+
+
 
     }
 
-    public static function taken() {
+    /*public static function taken() {
 
 
         if (isset($_POST['toeic'])) {
@@ -67,9 +100,11 @@ class ControllerToeic {
             require ('../views/toeic/grille.php');
         }
 
-    }
+    }*/
 
     public static function correct() {
+
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
 
         $reponses = array();
 
@@ -112,21 +147,28 @@ class ControllerToeic {
 
         ModelToeic::updateReponses($_POST['toeic'], $_POST['name'], $reponses);
 
-        require ('../views/professeur/accueil.php');
+        header('Location: routeur.php?controller=personne&&action=handle');
     }
 
     public static function delete() {
 
-        $toeics = ModelToeic::getToeics();
+        if (!isset($_SESSION['email'])) require ('../views/error.php');
 
-        require ('../views/toeic/delete.php');
+        if (!isset($_POST['toeic'])) {
+            $toeics = ModelToeic::getToeics();
+            require ('../views/toeic/delete.php');
+        }
+        else {
+            ModelToeic::deleteToeic($_POST['toeic']);
+            header('Location: routeur.php?controller=personne&&action=handle');
+        }
     }
 
-    public static function deleted() {
+    /*public static function deleted() {
 
         ModelToeic::deleteToeic($_POST['toeic']);
 
         require ('../views/professeur/accueil.php');
 
-    }
+    }*/
 }
