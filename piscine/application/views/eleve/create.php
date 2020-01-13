@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/createCss.css">
     <meta charset="UTF-8">
     <title>S'inscrire (élève)</title>
 </head>
 
 <body>
-<h3> S'inscrire en tant qu'élève</h3>
+
+<?php include('../../assets/css/headerLess.php'); ?>
+
+<div class="content">
+
+    <h3 class="title"> S'inscrire en tant qu'élève</h3>
 
 
-<form method="post" action="routeur.php?controller=personne&&action=createEleve">
+    <form method="post" action="routeur.php?controller=personne&&action=createEleve">
         <p>
+        <div class="label">
 
             <label for="nom">Nom</label> :
             <input type="text" name="nom" value="<?php if(!isset($erreurs['nom']) && isset($nom)) { echo $nom; } ?>" required/>
@@ -66,23 +74,29 @@
             </SELECT>
             <br>
 
+        </div>
+
 
         </p>
         <p>
-            <input type="submit" name="forminscription_eleve" value="S'inscrire" />
+            <input type="submit" class="bouton" name="forminscription_eleve" value="S'inscrire" />
         </p>
-</form>
+    </form>
 
-<?php
+    <?php
 
-if (isset($erreurs)) {
-    foreach ($erreurs as $value) {
-        echo $value."<br>";
+    if (isset($erreurs)) {
+        foreach ($erreurs as $value) {
+            echo $value."<br>";
+        }
     }
-}
-?>
+    ?>
 
-<?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Se connecter".'</a></br>';?>
+    <?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Retour à la connexion".'</a></br>';?>
+
+</div>
+
+<?php include('../../assets/css/footerLess.php'); ?>
 
 </body>
 </html>

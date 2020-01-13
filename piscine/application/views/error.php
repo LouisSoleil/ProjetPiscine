@@ -8,7 +8,7 @@
 <body>
 
 <p>
-    <?php echo "Erreur"; ?>
+    <?php echo "Erreur"; die();?>
 </p>
 
 </body>
