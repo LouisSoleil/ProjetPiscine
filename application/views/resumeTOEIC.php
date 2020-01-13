@@ -20,5 +20,7 @@
 	<p>Partie 5 : <?php echo $partie[4][1] ?> /30</p>
 	<p>Partie 6 : <?php echo $partie[5][1] ?> /16</p>
 	<p>Partie 7 : <?php echo $partie[6][1] ?> /54</p>
+
+	<a href = "../controllers/routeur.php?controller=stats&action=afficherTOEIC">Retour</a>
 </body>
 </html>
