@@ -14,7 +14,7 @@
 
 <?php
 echo "<a class=\"toeic\" href='routeur.php?controller=toeic&&action=take'>" . "Passer un toeic" . '</a>';
-echo "<a class=\"stat\" href='routeur.php?controller=personne&&action=accessStat'>" . "Accéder aux statistiques" . '</a></br>';
+echo "<a class=\"stat\" href='routeur.php?controller=stats&&action=index'>" . "Accéder aux statistiques" . '</a></br>';
 ?>
 
 <?php include('../../assets/css/footer.php'); ?>

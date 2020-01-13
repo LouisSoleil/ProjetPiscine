@@ -1,10 +1,12 @@
 $(document).ready(function(){
+
     $.ajax({
         type:'POST',
         url:'../controllers/recupEleve.php',
         data:'idClasse='+$("#classe").val()+"&numGroupe="+$("#groupe").val(),
         success: recevoirReponseEleve
     });
+
     $.ajax({
         type:'POST',
         url:'../controllers/recupToeicEleve.php',
@@ -62,8 +64,6 @@ $(document).ready(function(){
     });
 });
 function recevoirReponseEleve(reponse){
-    //alert(reponse);
-
     $.each($.parseJSON(reponse), function(index, val){
         //alert(index);
         $("#eleve").append("\

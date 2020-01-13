@@ -26,7 +26,6 @@
 
 <body>
     <?php
-    //var_dump($dataPoints);
     if(!isset($dataPoints) || count($dataPoints) == 0){
      ?>
     <h1>Désolé, il n'y a pas de données pour votre sélection</h1>

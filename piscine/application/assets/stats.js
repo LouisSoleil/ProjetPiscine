@@ -17,7 +17,23 @@ function startit()
 {
 	var tabs=document.getElementById('tabs').getElementsByTagName("a");
 	var container = document.getElementById('container');
+	console.log(tabs);
+	console.log(tabs.rel);
 	container.src = tabs[0].rel;
 }
 
-window.onload = startit;
+function startit()
+{
+	var tabs=document.getElementById('tabs').getElementsByTagName("a");
+	var container = document.getElementById('container');
+	container.src = tabs[0].rel;
+}
+
+function startit2()
+{
+	var tabs2=document.getElementById('tabs2').getElementsByTagName("option");
+	var container2 = document.getElementById('container2');
+	console.log(tabs2);	
+	console.log(tabs2.value);
+	container2.src = tabs2[0].value;
+}

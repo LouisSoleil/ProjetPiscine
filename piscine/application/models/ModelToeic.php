@@ -315,7 +315,7 @@ class ModelToeic {
 
     public static function getScoreListening($note) {
 
-        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag";
+        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag AND idPartie = 1";
 
         try {
             $req_prep = Model::$pdo->prepare($requete);
@@ -335,13 +335,13 @@ class ModelToeic {
 
     public static function getScoreReading($note) {
 
-        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag";
+        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag AND idPartie = 2";
 
         try {
             $req_prep = Model::$pdo->prepare($requete);
 
             $values = array (
-                "note_tag" => (100 + $note)
+                "note_tag" => ($note)
             );
 
             $req_prep->execute($values);

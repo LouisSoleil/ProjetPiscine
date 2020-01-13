@@ -4,24 +4,30 @@
 
 require_once ('../models/ModelToeic.php');
 require_once ('../models/ModelPersonne.php');
+require_once ('../models/ModelRepondre.php');
 
 class ControllerStats {
 
-    public static function index()
-    {
-        $libClasse = ModelClasse::getSections();
-        $classes = array();
+    public static function index() {
 
-        foreach ($libClasse as $lib){
-            for($i = 3; $i <= 5; $i++){
-                $idClasse = intval(ModelClasse::getIdClasse($lib, $i));
-                $add = array("idClasse" => $idClasse, "libClasse" => $lib, "annee" => $i);
-                array_push($classes, $add);
-            }
-            //var_dump($classes);
+        if (ModelPersonne::estEleve($_SESSION['email'])) {
+            require('../views/StatsEleve.php');
         }
+        else {
+            $libClasse = ModelClasse::getSections();
+            $classes = array();
 
-        require('../views/professeur/statsprof.php');
+            foreach ($libClasse as $lib){
+                for($i = 3; $i <= 5; $i++){
+                    $idClasse = intval(ModelClasse::getIdClasse($lib, $i));
+                    $add = array("idClasse" => $idClasse, "libClasse" => $lib, "annee" => $i);
+                    array_push($classes, $add);
+                }
+                //var_dump($classes);
+            }
+
+            require('../views/professeur/statsprof.php');
+        }
     }
 
     public static function getStats() {
@@ -31,18 +37,18 @@ class ControllerStats {
         $toeic = $_POST['toeic'];
         $partie = $_POST['partie'];
         $liste_reponses = ModelToeic::getStats($classe, $groupe, $toeic, $partie, $eleve);
-
+        
         $listening = array();
         $reading = array();
         $ptsListening = 0;
         $ptsReading = 0;
         $cptListening = 0;
         $cptReading = 0;
-
+        
         if(isset($liste_reponses[0])){
             foreach($liste_reponses as $l){
                 if($l['Type'] == "listening"){
-
+                    
                     $add = array("date" => $l['date'], "score" => intval($l['score']), "partie" => $l['IdPartie'], "toeic" => $l['IdTOEIC']);
                     array_push($listening, $add);
                     /*$ptsListening = $ptsListening + $l['score'];
@@ -55,11 +61,11 @@ class ControllerStats {
                     $cptReading = $cptReading + 1;*/
                 }
             }
-
+            
             $date = $liste_reponses[0]['date'];
-
+            
             $listeningConvert = array();
-
+            
             if(count($listening) != 0){
                 $partieListening = $listening[0]['partie'];
                 foreach ($listening as $val){
@@ -80,11 +86,11 @@ class ControllerStats {
                     }
                 }
             }
-
-
-
+            
+            
+            
             $date = $liste_reponses[0]['date'];
-
+            
             $readingConvert = array();
             if(count($reading) != 0){
                 $partieReading = $reading[0]['partie'];
@@ -104,23 +110,20 @@ class ControllerStats {
                     }
                 }
             }
-
+            
             $listeningFinale = array();
             if(count($listeningConvert) != 0){
-
+                
                 $cptListening = 0;
                 $ptsListening = 0;
                 $date = $listeningConvert[0]['date'];
                 foreach ($listeningConvert as $val){
                     if($date == $val['date'] && $cptListening <= 3){
-                        echo "coucou";
                         $ptsListening = $ptsListening + $val['score'];
                         $cptListening = $cptListening + 1;
                     }
                     else{
-                        echo "salut";
                         $score = ModelToeic::getScoreListening(intval($ptsListening));
-                        var_dump($score);
                         $add = array("date" => $date, "score" => $score, "toeic" => $val['toeic']);
                         array_push($listeningFinale, $add);
                         $ptsListening = $val['score'];
@@ -129,12 +132,10 @@ class ControllerStats {
                     }
                 }
             }
-
-            var_dump($listeningFinale);
-
+            
             $readingFinale = array();
             if(count($readingConvert) != 0){
-
+                
                 $cptReading = 0;
                 $ptsReading = 0;
                 $date = $readingConvert[0]['date'];
@@ -153,7 +154,7 @@ class ControllerStats {
                     }
                 }
             }
-
+            
             $dataPoints = array();
             if($partie == 1){
                 foreach ($listeningFinale as $val){
@@ -173,21 +174,21 @@ class ControllerStats {
                     array_push($dataPoints, $add);
                 }
             }
-
+            
             //var_dump($dataPoints);
-
-
+            
+            
             if(isset($dataPoints[0]) || count($dataPoints) != 0){
                 $valMax = $dataPoints[0]['y'];
                 $valMin = $dataPoints[0]['y'];
-
+                
                 $moyenne = 0;
                 $cpt = 0;
-
+                
                 foreach($dataPoints as $val){
                     $moyenne += $val['y'];
                     $cpt += 1;
-
+                    
                     if($val['y'] > $valMax){
                         $valMax = $val['y'];
                     }
@@ -196,31 +197,31 @@ class ControllerStats {
                     }
                 }
                 $moyenne = round($moyenne / $cpt,2);
-
+                
                 $evolutionGlobale = 1;
-
+                
                 for($i = 1; $i < count($dataPoints); $i++){
                     $evolutionGlobale = round($evolutionGlobale * (1+round(($dataPoints[$i]['y']-$dataPoints[$i-1]['y'])/$dataPoints[$i]['y'], 2)),2);
                 }
-
+                
                 $evolutionGlobale = ($evolutionGlobale-1)*100;
-
+                
                 //var_dump($evolutionGlobale);
-
+                
             }
-
+            
         }
-
+        
         /*
         $dataPoints = array();
-
+        
         $cpt = 0;
         $limit = 4;
         $pts = 0;
         $date = null;
         if(isset($liste_reponses[0])){
             $date = $liste_reponses[0]['date'];
-
+        
             if($partie == 2){
                 $limit = 3;
             }
@@ -258,11 +259,74 @@ class ControllerStats {
             array_push($dataPoints, $add);
 
             var_dump($dataPoints);
-
+            
         }
         */
-
+        
         require('../views/professeur/stats.php');
+    }
+
+    public static function afficherAllreponses() {
+        $liste_reads = ModelRepondre::get_reading($_SESSION['codeINE']);
+        $liste_lists = ModelRepondre::get_listening($_SESSION['codeINE']);
+        $reading = array();
+        $listening = array();
+        $total = array();
+        $dataPoints = array();
+        foreach ($liste_reads as $read) {
+            $add = array("date" => $read['date'], "score" => ModelTOEIC::getScoreReading($read['SUM(score)']));
+            array_push($reading, $add);
+        }
+        foreach ($liste_lists as $list) {
+            $add = array("date" => $list['date'], "score" => ModelTOEIC::getScoreListening($list['SUM(score)']));
+            array_push($listening, $add);
+        }
+        for ($i=0 ; $i < sizeof($reading) ; $i++) {
+            $add = array ("date" => $reading[$i]['date'], "score" => $reading[$i]['score'] + $listening[$i]['score']);
+            array_push($total, $add);
+        }
+        foreach ($total as $reponse){
+            $add = array("y" => $reponse["score"], "label" => $reponse['date']);
+            array_push($dataPoints, $add);
+        }
+        require('../views/tab-stats.php');
+    }
+
+    public static function afficherListening() {
+        $liste_reponses = ModelRepondre::get_listening($_SESSION['codeINE']);
+        $dataPoints = array();
+        foreach ($liste_reponses as $reponse){
+            $add = array("y" => ModelTOEIC::getScoreListening($reponse['SUM(score)']), "label" => $reponse['date']);
+            array_push($dataPoints, $add);
+        }
+        require('../views/tab-listening.php');
+    }
+
+    public static function afficherReading() {
+        $liste_reponses = ModelRepondre::get_reading($_SESSION['codeINE']);
+        $dataPoints = array();
+        foreach ($liste_reponses as $reponse){
+            $add = array("y" => ModelTOEIC::getScoreReading($reponse['SUM(score)']), "label" => $reponse['date']);
+            array_push($dataPoints, $add);
+        }
+        require('../views/tab-reading.php');
+    }
+    public static function afficherTOEIC()
+    {
+        $liste_TOEIC = ModelRepondre::get_toeic($_SESSION['codeINE']);
+        require('../views/tab-toeic.php');
+    }
+
+    public static function afficher1TOEIC()
+    {
+        $gTOEIC = ModelRepondre::get_1toeic($_SESSION['codeINE'],$_POST['numeroTOEIC']);
+        $gread =  ModelRepondre::sum_reading($_SESSION['codeINE'],$_POST['numeroTOEIC']);
+        $read = ModelTOEIC::getScoreReading($gread[0]["sum(score)"]);
+        $glist =  ModelRepondre::sum_listening($_SESSION['codeINE'],$_POST['numeroTOEIC']);
+        $list = ModelTOEIC::getScoreListening($glist[0]["sum(score)"]);
+        $partie = ModelRepondre::get_partie($_SESSION['codeINE'],$_POST['numeroTOEIC']);
+        $TOEIC = $list + $read;
+        require('../views/resumeTOEIC.php');
     }
 
 }
