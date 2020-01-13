@@ -13,8 +13,8 @@ class ControllerStats {
 	}
 
 	public function afficherAllreponses() {
-		$liste_reads = ModelRepondre::get_reading("12345678912");
-		$liste_lists = ModelRepondre::get_listening("12345678912");
+		$liste_reads = ModelRepondre::get_reading($_SESSION['codeINE']);
+		$liste_lists = ModelRepondre::get_listening($_SESSION['codeINE']);
 		$reading = array();
 		$listening = array();
 		$total = array();
@@ -39,7 +39,7 @@ class ControllerStats {
 	}
 
 	public function afficherListening() {
-		$liste_reponses = ModelRepondre::get_listening("12345678912");
+		$liste_reponses = ModelRepondre::get_listening($_SESSION['codeINE']);
 		$dataPoints = array();
 	    foreach ($liste_reponses as $reponse){
 	    	$add = array("y" => ModelTOEIC::getScoreListening($reponse['SUM(score)']), "label" => $reponse['date']);
@@ -49,7 +49,7 @@ class ControllerStats {
 	}
 
 	public function afficherReading() {
-		$liste_reponses = ModelRepondre::get_reading("12345678912");
+		$liste_reponses = ModelRepondre::get_reading($_SESSION['codeINE']);
 	    $dataPoints = array();
 	    foreach ($liste_reponses as $reponse){
 	    	$add = array("y" => ModelTOEIC::getScoreReading($reponse['SUM(score)']), "label" => $reponse['date']);
@@ -59,18 +59,18 @@ class ControllerStats {
 	}
 	public function afficherTOEIC()
 	{
-		$liste_TOEIC = ModelRepondre::get_toeic("12345678912");
+		$liste_TOEIC = ModelRepondre::get_toeic($_SESSION['codeINE']);
 		require('../views/tab-toeic.php');
 	}
 
 	public function afficher1TOEIC()
 	{
-		$gTOEIC = ModelRepondre::get_1toeic("12345678912",$_POST['numeroTOEIC']);
-		$gread =  ModelRepondre::sum_reading("12345678912",$_POST['numeroTOEIC']);
+		$gTOEIC = ModelRepondre::get_1toeic($_SESSION['codeINE'],$_POST['numeroTOEIC']);
+		$gread =  ModelRepondre::sum_reading($_SESSION['codeINE'],$_POST['numeroTOEIC']);
 		$read = ModelTOEIC::getScoreReading($gread[0]["sum(score)"]);
-		$glist =  ModelRepondre::sum_listening("12345678912",$_POST['numeroTOEIC']);
+		$glist =  ModelRepondre::sum_listening($_SESSION['codeINE'],$_POST['numeroTOEIC']);
 		$list = ModelTOEIC::getScoreListening($glist[0]["sum(score)"]);
-		$partie = ModelRepondre::get_partie("12345678912",$_POST['numeroTOEIC']);
+		$partie = ModelRepondre::get_partie($_SESSION['codeINE'],$_POST['numeroTOEIC']);
 		$TOEIC = $list + $read;
 		require('../views/resumeTOEIC.php');
 	}
