@@ -237,39 +237,6 @@ class ControllerPersonne {
         }
     }
 
-    public static function update2() {
-
-        if (!isset($_POST['formupdate'])) {
-            require ('../views/eleve/profil_modify.php');
-        }
-        else {
-            $taillemax = 2097152;
-            $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-
-            if ($_FILES['photo']['size'] <= $taillemax) {
-                $extensionUpload = strtolower(substr(strrchr($_FILES['photo']['name'],'.'),1));
-
-                if (in_array($extensionUpload, $extensionsValides)) {
-                    $chemin = "../../membres/photos/".$_SESSION['codeINE']/*.".".$extensionUpload*/;
-                    $resultat = move_uploaded_file($_FILES['photo']['tmp_name'],$chemin);
-
-                    if ($resultat) {
-                        header('Location: routeur.php?controller=personne&&action=profil');
-                    }
-                    else {
-                        $erreur = "Erreur 3";
-                    }
-                }
-                else {
-                    $erreur = "Erreur 2";
-                }
-            }
-            else {
-                $erreur = "Erreur 1";
-            }
-        }
-    }
-
     public static function update() {
 
         if (!isset($_SESSION['email'])) require ('../views/error.php');
@@ -430,26 +397,36 @@ class ControllerPersonne {
         }
     }
 
-    public static function accessStat() {
+    public static function update2() {
 
-        if (!isset($_SESSION['email'])) require ('../views/error.php');
-
-        if (ModelPersonne::estEleve($_SESSION['email'])) {
-            require('../views/eleve/stats.php');
+        if (!isset($_POST['formupdate'])) {
+            require ('../views/eleve/profil_modify.php');
         }
         else {
-            $libClasse = ModelClasse::getSections();
-            $classes = array();
+            $taillemax = 2097152;
+            $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
 
-            foreach ($libClasse as $lib){
-                for($i = 3; $i <= 5; $i++){
-                    $idClasse = intval(ModelClasse::getIdClasse($lib, $i));
-                    $add = array("idClasse" => $idClasse, "libClasse" => $lib, "annee" => $i);
-                    array_push($classes, $add);
+            if ($_FILES['photo']['size'] <= $taillemax) {
+                $extensionUpload = strtolower(substr(strrchr($_FILES['photo']['name'],'.'),1));
+
+                if (in_array($extensionUpload, $extensionsValides)) {
+                    $chemin = "../../membres/photos/".$_SESSION['codeINE']/*.".".$extensionUpload*/;
+                    $resultat = move_uploaded_file($_FILES['photo']['tmp_name'],$chemin);
+
+                    if ($resultat) {
+                        header('Location: routeur.php?controller=personne&&action=profil');
+                    }
+                    else {
+                        $erreur = "Erreur 3";
+                    }
                 }
-                //var_dump($classes);
+                else {
+                    $erreur = "Erreur 2";
+                }
             }
-            require ('../views/professeur/statsprof.php');
+            else {
+                $erreur = "Erreur 1";
+            }
         }
     }
 }

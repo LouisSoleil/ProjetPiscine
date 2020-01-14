@@ -28,13 +28,13 @@ class ModelToeic {
 
         $idToeic = Model::$pdo->lastInsertId();
 
-        $requete =  "INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 1, 'Oral');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 2, 'Oral');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 3, 'Oral');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 4, 'Oral');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 5, 'Ecrit');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 6, 'Ecrit');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 7, 'Ecrit');";
+        $requete =  "INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 1, 'listening');"
+            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 2, 'listening');"
+            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 3, 'listening');"
+            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 4, 'listening');"
+            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 5, 'reading');"
+            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 6, 'reading');"
+            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 7, 'reading');";
 
         Model::$pdo->query($requete);
 

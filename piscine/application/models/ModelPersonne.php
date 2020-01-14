@@ -147,6 +147,8 @@ abstract class ModelPersonne {
 
     public static function updatePhoto() {
 
+
+
     }
 
     public static function getEleveByClasseGroupe($idClasse,$numGroupe){
