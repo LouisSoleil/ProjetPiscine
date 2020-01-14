@@ -82,7 +82,7 @@ class ModelToeic {
     }
 
     public static function getToeics() {
-        $requete = "SELECT * FROM toeic ORDER BY idToeic";
+        $requete = "SELECT * FROM toeic ORDER BY libelleToeic";
         $rep = Model::$pdo->query($requete);
 
         return $rep->fetchAll();
@@ -315,7 +315,7 @@ class ModelToeic {
 
     public static function getScoreListening($note) {
 
-        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag";
+        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag AND idPartie = 1";
 
         try {
             $req_prep = Model::$pdo->prepare($requete);
@@ -335,13 +335,13 @@ class ModelToeic {
 
     public static function getScoreReading($note) {
 
-        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag";
+        $requete = "SELECT * FROM score WHERE idQuestion = :note_tag AND idPartie = 2";
 
         try {
             $req_prep = Model::$pdo->prepare($requete);
 
             $values = array (
-                "note_tag" => (100 + $note)
+                "note_tag" => ($note)
             );
 
             $req_prep->execute($values);
@@ -351,6 +351,96 @@ class ModelToeic {
         }
 
         return $req_prep->fetchAll()[0]['valeur'];
+    }
+
+    public static function getStats($idClasse=NULL, $numGroupe=NULL, $idToeic=NULL, $idPartie=NULL, $codeINE=NULL){
+        $requete = "SELECT DISTINCT R.date, R.score, S.Type, R.IdPartie, R.IdTOEIC FROM repondre R JOIN souspartie S ON R.IdPartie=S.IdPartie JOIN personne P ON R.codeINE=P.codeINE";
+        if(isset($codeINE) || isset($idClasse) || isset($numGroupe) || isset($idToeic) || isset($idPartie)){
+
+            $requete =$requete." WHERE 1=1"; //afin de mettre le AND dans chaque proposition en bas car le premier vérifier est codeINE sauf qu'il peut être null
+            if(isset($codeINE)){
+                if($codeINE != "0"){
+                    //var_dump($requete);
+                    $requete = $requete." AND R.codeINE='".$codeINE."'";
+                }
+            }
+            if(isset($idClasse)){
+                if($idClasse != "0"){
+                    $requete = $requete." AND P.IdClasse='".$idClasse."'";
+                }
+            }
+            if(isset($numGroupe)){
+                if($numGroupe != "0"){
+                    $requete = $requete." AND P.NumGroupe='".$numGroupe."'";
+                }
+            }
+            if(isset($idToeic)){
+                if($idToeic != "0"){
+                    $requete = $requete." AND R.IdTOEIC='".$idToeic."'";
+                }
+            }
+            if(isset($idPartie)){
+                if($idPartie == 1){
+                    $idPartie = "listening";
+                    $requete = $requete." AND S.Type='".$idPartie."'";
+                }
+                elseif($idPartie == 2){
+                    $idPartie = "reading";
+                    $requete = $requete." AND S.Type='".$idPartie."'";
+                }
+            }
+            $requete = $requete." ORDER BY R.date, R.IdPartie";
+
+        }
+
+        try{
+            $rep = Model::$pdo->query($requete);
+            $rep->execute();
+            //var_dump($rep);
+            return $rep->fetchAll();
+        } catch (PDOException $e) {
+            return 1;
+        }
+
+    }
+
+    public static function getToeicByEleve($codeINE){
+        $requete = "SELECT IdTOEIC, LibelleTOEIC FROM toeic";
+
+        try{
+            if($codeINE != "0"){
+                $requete = "SELECT DISTINCT R.IdTOEIC, LibelleToeic, codeINE FROM repondre R JOIN toeic T ON R.IdTOEIC=T.IdTOEIC WHERE codeINE = :codeINE";
+                $req = Model::$pdo->prepare($requete);
+                $values = array(
+                    "codeINE" => $codeINE
+                );
+
+                $req->execute($values);
+            }
+            else{
+                $req = Model::$pdo->query($requete);
+
+                $req->execute();
+            }
+
+            $res = array();
+
+            while ($data = $req->fetch()) {
+                $lib = 'LibelleToeic';
+                if(!isset($data[$lib])){
+                    $lib = 'LibelleTOEIC';
+                }
+                $add=array(
+                    "IdTOEIC" => $data['IdTOEIC'],
+                    "LibelleTOEIC" => $data[$lib]
+                );
+                array_push($res, $add);
+            }
+
+            return $res;
+        } catch (PDOException $ex) {
+            return 1;
+        }
     }
 }
 

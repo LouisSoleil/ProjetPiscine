@@ -1,11 +1,18 @@
+<?php if (!isset($_SESSION['email'])) require ('../error.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/homepage.css">
     <meta charset="UTF-8">
     <title>Score</title>
 </head>
 
 <body>
+
+<?php include('../../assets/css/header.php'); ?>
+
+<div class="content">
+
 <h3>Score</h3>
 
 
@@ -29,8 +36,8 @@ for ($i = 1; $i <=7; $i++) {
 
 echo "<br>";
 
-echo "Partie Orale : ".$notes['listening']." / 100"."<br>";
-echo "Partie Ecrite : ".$notes['reading']." / 100"."<br>";
+echo "Score partie Orale : ".$notes['listening']." / 100"."<br>";
+echo "Score partie Ecrite : ".$notes['reading']." / 100"."<br>";
 echo "<br>";
 echo "Note : ". ($notes['reading']+$notes['listening'])." / 200";
 
@@ -38,7 +45,9 @@ echo "Note : ". ($notes['reading']+$notes['listening'])." / 200";
 
 ?>
 
-<input type="button" value="Revenir à la page d'accueil" onclick="javascript:location.href='routeur.php?controller=personne&&action=accueil'">
+</div>
+
+<?php include('../../assets/css/footer.php'); ?>
 
 </body>
 </html>

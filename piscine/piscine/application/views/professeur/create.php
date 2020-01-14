@@ -2,17 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/createCss.css">
     <title>S'inscrire (professeur)</title>
 </head>
 
 <body>
-<h3> S'inscrire en tant que professeur</h3>
+
+<?php include('../../assets/css/headerLess.php'); ?>
+
+<div class="content">
+
+    <h3> S'inscrire en tant que professeur</h3>
 
 
-<form method="post" action="routeur.php?controller=personne&&action=createProfesseur">
-    <fieldset>
-        <legend><b></b></legend>
+    <form method="post" action="routeur.php?controller=personne&&action=createProfesseur">
+
         <p>
+
+        <div class="label">
 
             <label for="nom">Nom</label> :
             <input type="text" name="nom" id="nom" value="<?php if(!isset($erreurs['nom']) && isset($nom)) { echo $nom; } ?>"  required/>
@@ -37,23 +45,31 @@
             <label for="password_confirm">Confirmation du mot de passe</label> :
             <input type='password' name="password_confirm" id="password_confirm" required/>
             <br>
+
+        </div>
+
         </p>
+
         <p>
-            <input type="submit" name="forminscription_prof" value="S'inscrire" />
+            <input class="bouton" type="submit" name="forminscription_prof" value="S'inscrire" />
         </p>
-    </fieldset>
-</form>
 
-<?php
+    </form>
 
-if (isset($erreurs)) {
-    foreach ($erreurs as $value) {
-        echo $value."<br>";
+    <?php
+
+    if (isset($erreurs)) {
+        foreach ($erreurs as $value) {
+            echo $value."<br>";
+        }
     }
-}
-?>
+    ?>
 
-<?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Se connecter".'</a></br>';?>
+    <?php echo "<a href='routeur.php?controller=personne&&action=connect'>"."Retour à la connexion".'</a></br>';?>
+
+</div>
+
+<?php include('../../assets/css/footerLess.php'); ?>
 
 </body>
 </html>
