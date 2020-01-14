@@ -4,7 +4,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../../assets/css/homepage.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/accueilProfCss.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/accueilCss.css">
     <meta charset="UTF-8">
     <title>Accueil</title>
 </head>

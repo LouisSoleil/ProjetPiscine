@@ -1,0 +1,64 @@
+.toeic{
+	float: left;
+	position : absolute;
+
+	width: 45%;
+
+	top: 16%;
+ 	bottom: 16%;
+
+	padding-right: 6px;
+	padding-left: 6px;
+	padding-top: 14%;
+
+	margin-left: 2%;
+	margin-right: 1%;
+
+	font-family: Tahoma, Geneva, sans-serif;
+	font-weight: bold;
+    font-size: 25px;
+	background:#f5f5f5;
+	color:#555;
+	border-radius:2px;
+	border:1px solid #ccc;
+	box-shadow:1px 1px 3px #999;
+
+	text-decoration: none;
+	text-align: center;
+
+	background-color: white;
+	opacity: 0.8;
+}
+
+.stat{
+	float: right;
+	position: absolute;
+
+	width: 45%;
+
+	top: 16%;
+ 	bottom: 16%;
+ 	left: 49%;
+
+	padding-top: 14%;
+	padding-right: 6px;
+	padding-left: 6px;
+
+	margin-right: 2%;
+	margin-left: 1%;
+
+	font-family: Tahoma, Geneva, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+	background:#f5f5f5;
+	color:#555;
+	border-radius:2px;
+	border:1px solid #ccc;
+	box-shadow:1px 1px 3px #999;
+
+	text-decoration: none;
+	text-align: center;
+
+	background-color: white;
+	opacity: 0.8;
+}
