@@ -1,16 +1,19 @@
 .activation{
+
 	float: left;
+	position: absolute;
 
 	width: 45%;
 
-	padding-top: 6%;
-	padding-bottom: 6%;
+	top: 17%;
+	bottom: 53%;
+
+	padding-top: 5%;
 	padding-right: 6px;
 	padding-left: 6px;
 
 	margin-left: 2%;
 	margin-right: 1%;
-	margin-top: 2%;
 
 	font-family: Tahoma, Geneva, sans-serif;
 	font-weight: bold;
@@ -29,18 +32,21 @@
 }
 
 .creation{
-	float: left;
+	float: right;
+	position: absolute;
 
 	width: 45%;
 
-	padding-top: 6%;
-	padding-bottom: 6%;
+	top: 17%;
+	bottom: 53%;
+	left: 49%; 
+
+	padding-top: 5%;
 	padding-right: 6px;
 	padding-left: 6px;
 
 	margin-right: 2%;
 	margin-left: 1%;
-	margin-top: 2%;
 
 	font-family: Tahoma, Geneva, sans-serif;
     font-size: 25px;
@@ -60,17 +66,19 @@
 
 .modifier{
 	float: left;
+	position: absolute;
 
 	width: 45%;
 
-	padding-top: 6%;
-	padding-bottom: 6%;
+	top: 53%;
+	bottom: 17%; 
+
+	padding-top: 5%;
 	padding-right: 6px;
 	padding-left: 6px;
 
 	margin-left: 2%;
 	margin-right: 1%;
-	margin-top: 2%;
 
 	font-family: Tahoma, Geneva, sans-serif;
 	font-weight: bold;
@@ -89,18 +97,21 @@
 }
 
 .suppression{
-	float: left;
+	float: right;
+	position: absolute;
 
 	width: 45%;
 
-	padding-top: 6%;
-	padding-bottom: 6%;
+	bottom: 17%;
+	top : 53%;
+	left: 49%; 
+
+	padding-top: 5%;
 	padding-right: 6px;
 	padding-left: 6px;
 
 	margin-right: 2%;
 	margin-left: 1%;
-	margin-top: 2%;
 
 	font-family: Tahoma, Geneva, sans-serif;
     font-size: 25px;

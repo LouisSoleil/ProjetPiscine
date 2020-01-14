@@ -18,7 +18,7 @@
 				        <?php
 				        foreach ($liste_TOEIC as $num) {
 				        	?>
-				           <option> <?php echo intval($num[0])?> </option>
+				           <option value="<?php echo $num['date']?>"> <?php echo ($num['libelleTOEIC'])?> - <?php echo ($num['date'])?> </option>
 				        <?php
 				        }
 				        ?>

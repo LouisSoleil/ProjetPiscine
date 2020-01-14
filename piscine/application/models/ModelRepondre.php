@@ -1,17 +1,17 @@
-<?php  
+<?php
 
 require_once ("Model.php");
-abstract class ModelRepondre 
+abstract class ModelRepondre
 {
 
-	protected $codeINE;
-	protected $date;
-	protected $idTOEIC; 
-	protected $idPartie;
-	protected $score;
+    protected $codeINE;
+    protected $date;
+    protected $idTOEIC;
+    protected $idPartie;
+    protected $score;
 
 
-	public function __construct($codeINE = NULL, $date = NULL, $idTOEIC = NULL, $idPartie = NULL, $score = NULL) {
+    public function __construct($codeINE = NULL, $date = NULL, $idTOEIC = NULL, $idPartie = NULL, $score = NULL) {
         if (!is_null($codeINE) && !is_null($date) && !is_null($idTOEIC) && !is_null($idPartie) && !is_null($score)) {
             $this->codeINE = $codeINE;
             $this->date = $date;
@@ -23,7 +23,7 @@ abstract class ModelRepondre
 
     public static function get_toeic($codeINE)
     {
-        $requete = "SELECT DISTINCT idTOEIC FROM repondre WHERE codeINE = :codeINE_tag";
+        $requete = "SELECT DISTINCT repondre.idTOEIC, libelleTOEIC, `date` FROM repondre JOIN toeic ON repondre.IdTOEIC = toeic.IdTOEIC WHERE codeINE = :codeINE_tag GROUP BY `date`";
         try {
             $req_prep = Model::$pdo->prepare($requete);
             $values = array (
@@ -37,15 +37,15 @@ abstract class ModelRepondre
         return $rep;
     }
 
-    public static function get_1toeic($codeINE, $idToeic)
+    public static function get_1toeic($codeINE, $date)
     {
-        $requete = "SELECT sum(score) FROM repondre WHERE codeINE = :codeINE_tag AND idToeic = :idToeic_tag";
+        $requete = "SELECT sum(score) FROM repondre WHERE codeINE = :codeINE_tag AND `date` = :date_tag";
 
         try {
             $req_prep = Model::$pdo->prepare($requete);
             $values = array (
                 "codeINE_tag" => $codeINE,
-                "idToeic_tag" => $idToeic
+                "date_tag" => $date
             );
             $req_prep->execute($values);
         } catch (PDOException $e) {
@@ -56,9 +56,9 @@ abstract class ModelRepondre
         return $rep;
     }
 
-	public static function get_allreponses($codeINE){
-		$requete = "SELECT codeINE, `date`, idToeic, SUM(score) FROM repondre WHERE codeINE = :codeINE_tag GROUP BY codeINE, `date`, idToeic";
-         try {
+    public static function get_allreponses($codeINE){
+        $requete = "SELECT codeINE, `date`, idToeic, SUM(score) FROM repondre WHERE codeINE = :codeINE_tag GROUP BY codeINE, `date`, idToeic";
+        try {
             $req_prep = Model::$pdo->prepare($requete);
             $values = array (
                 "codeINE_tag" => $codeINE
@@ -71,7 +71,7 @@ abstract class ModelRepondre
         return $rep;
     }
 
-    
+
     public static function get_listening($codeINE)
     {
         $requete = "SELECT codeINE, `date`, idToeic, IdPartie, SUM(score) FROM repondre WHERE codeINE = :codeINE_tag AND IdPartie = '1' OR codeINE = :codeINE_tag AND IdPartie = '2' OR codeINE = :codeINE_tag AND IdPartie = '3' OR codeINE = :codeINE_tag AND IdPartie = '4' GROUP BY codeINE, `date`, idToeic";
@@ -104,14 +104,14 @@ abstract class ModelRepondre
         return $rep;
     }
 
-    public static function sum_reading($codeINE, $idToeic) {
-        $requete = "SELECT sum(score) FROM repondre WHERE codeINE = :codeINE_tag AND idToeic = :idToeic_tag AND IdPartie = '5' OR codeINE = :codeINE_tag AND idToeic = :idToeic_tag AND IdPartie = '6' OR codeINE = :codeINE_tag AND idToeic = :idToeic_tag AND IdPartie = '7' GROUP BY codeINE, `date`, idToeic";
+    public static function sum_reading($codeINE, $date) {
+        $requete = "SELECT sum(score), `date` FROM repondre WHERE codeINE = :codeINE_tag AND `date` = :date_tag AND IdPartie = '5' OR codeINE = :codeINE_tag AND `date` = :date_tag AND IdPartie = '6' OR codeINE = :codeINE_tag AND `date` = :date_tag AND IdPartie = '7' GROUP BY codeINE, `date`, idToeic";
 
         try {
             $req_prep = Model::$pdo->prepare($requete);
             $values = array (
                 "codeINE_tag" => $codeINE,
-                "idToeic_tag" => $idToeic
+                "date_tag" => $date
             );
             $req_prep->execute($values);
         } catch (PDOException $e) {
@@ -122,14 +122,14 @@ abstract class ModelRepondre
         return $rep;
     }
 
-    public static function sum_listening($codeINE, $idToeic) {
-        $requete = "SELECT sum(score) FROM repondre WHERE codeINE = :codeINE_tag AND idToeic = :idToeic_tag AND IdPartie = '1' OR codeINE = :codeINE_tag AND idToeic = :idToeic_tag AND IdPartie = '2' OR codeINE = :codeINE_tag AND idToeic = :idToeic_tag AND IdPartie = '3' OR codeINE = :codeINE_tag AND idToeic = :idToeic_tag AND IdPartie = '4' ";
+    public static function sum_listening($codeINE, $date) {
+        $requete = "SELECT sum(score) FROM repondre WHERE codeINE = :codeINE_tag AND `date` = :date_tag AND IdPartie = '1' OR codeINE = :codeINE_tag AND `date` = :date_tag AND IdPartie = '2' OR codeINE = :codeINE_tag AND `date` = :date_tag AND IdPartie = '3' OR codeINE = :codeINE_tag AND `date` = :date_tag AND IdPartie = '4' GROUP BY `date`";
 
         try {
             $req_prep = Model::$pdo->prepare($requete);
             $values = array (
                 "codeINE_tag" => $codeINE,
-                "idToeic_tag" => $idToeic
+                "date_tag" => $date
             );
             $req_prep->execute($values);
         } catch (PDOException $e) {
@@ -141,7 +141,7 @@ abstract class ModelRepondre
     }
 
     public static function get_partie($codeINE, $idToeic) {
-        $requete = "SELECT  idPartie, score FROM repondre WHERE codeINE = :codeINE_tag AND idToeic = :idToeic_tag ";
+        $requete = "SELECT  idPartie, score FROM repondre WHERE codeINE = :codeINE_tag AND `date` = :idToeic_tag ";
         try {
             $req_prep = Model::$pdo->prepare($requete);
             $values = array (

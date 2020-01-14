@@ -31,9 +31,9 @@
                     echo '<label for="cocher">A</label>'.
                         '<input type="radio" name="'.$i.'" value="A" />'.
                         '<label for="cocher">B</label>'.
-                        '<input type="radio" name="'.$i.'" value="B" checked/>'.
+                        '<input type="radio" name="'.$i.'" value="B" />'.
                         '<label for="cocher">C</label>'.
-                        '<input type="radio" name="'.$i.'" value="C" />'.
+                        '<input type="radio" name="'.$i.'" value="C" checked/>'.
                         '<label for="cocher">D</label>'.
                         '<input type="radio" name="'.$i.'" value="D" />'.
                         '<br><br>';

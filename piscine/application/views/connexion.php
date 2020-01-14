@@ -19,6 +19,7 @@
 
 
     <form method="post" action="routeur.php?controller=personne&&action=connect">
+        <div class="centrage">
         <p>
             <label for="email">Adresse mail</label> :
             <input type="email" name="email" value="<?php if(!isset($erreurs['email']) && isset($_POST['email'])) { echo $_POST['email']; } ?>" required/>
@@ -44,6 +45,8 @@
     <br>
     <input class="bouton" type="button" value="S'inscrire en tant qu'élève" onclick="javascript:location.href='routeur.php?controller=personne&&action=createEleve'">
     <input class="bouton" type="button" value="S'inscrire en tant que professeur" onclick="javascript:location.href='routeur.php?controller=personne&&action=createProfesseur'">
+
+    </div>
 
 </div>
 
