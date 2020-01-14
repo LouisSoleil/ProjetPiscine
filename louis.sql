@@ -1,4 +1,4 @@
-CREATE TABLE piscine.Classe(
+CREATE TABLE Classe(
         IdClasse      Int NOT NULL AUTO_INCREMENT,
         LibelleClasse Varchar (5) NOT NULL ,
         Annee         Int NOT NULL
@@ -6,7 +6,7 @@ CREATE TABLE piscine.Classe(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE piscine.personne (
+CREATE TABLE personne (
 	codeINE varchar(11) NOT NULL,
 	nom varchar(255) NOT NULL,
 	prenom varchar(255) NOT NULL,
@@ -16,11 +16,11 @@ CREATE TABLE piscine.personne (
 	IdClasse int(11) DEFAULT NULL,
 	PRIMARY KEY (codeINE),
  KEY Personne_Classe0_FK (IdClasse),
- CONSTRAINT Personne_Classe0_FK FOREIGN KEY (IdClasse) REFERENCES classe (IdClasse),
+ CONSTRAINT Personne_Classe0_FK FOREIGN KEY (IdClasse) REFERENCES classe (IdClasse)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE piscine.Toeic (
+CREATE TABLE Toeic (
 	IdTOEIC int(11) NOT NULL AUTO_INCREMENT,
 	LibelleTOEIC varchar(255) NOT NULL,
 	estVisible tinyint(1) NOT NULL DEFAULT '0',
@@ -28,7 +28,7 @@ CREATE TABLE piscine.Toeic (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE piscine.souspartie(
+CREATE TABLE souspartie(
         IdTOEIC       Int NOT NULL ,
         IdPartie      Int NOT NULL ,
         `Type`        Varchar (255) NOT NULL
@@ -38,7 +38,7 @@ CREATE TABLE piscine.souspartie(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE piscine.Question(
+CREATE TABLE Question(
         IdQuestion   Int NOT NULL,
         ReponseJuste Char (1) NOT NULL ,
         IdTOEIC      Int NOT NULL ,
@@ -49,7 +49,7 @@ CREATE TABLE piscine.Question(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE piscine.Repondre (
+CREATE TABLE Repondre (
 	codeINE varchar(11) NOT NULL,
 	`date` datetime NOT NULL,
 	IdTOEIC int(11) NOT NULL,
