@@ -73,7 +73,7 @@ function recevoirReponseEleve(reponse){
 }
 
 function recevoirReponseToeic(reponse){
-    alert(reponse);
+    //alert(reponse);
 
     $.each($.parseJSON(reponse), function(index, val){
         //alert(val);
