@@ -198,15 +198,16 @@ class ControllerStats {
                 }
                 $moyenne = round($moyenne / $cpt,2);
                 
-                $evolutionGlobale = 1;
+                $evolutionGlobale = 0;
                 
                 for($i = 1; $i < count($dataPoints); $i++){
                     if($dataPoints[$i]['y'] != 0){
-                        $evolutionGlobale = round($evolutionGlobale * (1+round(($dataPoints[$i]['y']-$dataPoints[$i-1]['y'])/$dataPoints[$i]['y'], 2)),2);
+                        $evolutionGlobale = round($evolutionGlobale + (round(($dataPoints[$i]['y']-$dataPoints[$i-1]['y'])/$dataPoints[$i-1]['y']*100, 2)),2);
+                        var_dump($evolutionGlobale);
                     }
                 }
                 
-                $evolutionGlobale = ($evolutionGlobale-1)*100;
+                //$evolutionGlobale = ($evolutionGlobale);
                 
             }
             

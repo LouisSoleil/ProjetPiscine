@@ -406,41 +406,32 @@ class ModelToeic {
         
     }
     
-    public static function getToeicByEleve($codeINE){
-        $requete = "SELECT IdTOEIC, LibelleTOEIC FROM toeic";
+    public static function getToeicByEleve($codeINE,$idClasse,$numGroupe){
+        $requete = "SELECT DISTINCT T.IdTOEIC, T.LibelleTOEIC FROM repondre R JOIN toeic T ON R.IdTOEIC=T.IdTOEIC JOIN personne P ON R.codeINE=P.codeINE WHERE 1=1";
+        
+        if(isset($codeINE)){
+            if($codeINE != "0"){
+                $requete = $requete." AND R.codeINE = '".$codeINE."'";
+            }
+        }
+        if(isset($idClasse)){
+            if($idClasse != "0"){
+                $requete = $requete." AND P.IdClasse = '".$idClasse."'";
+            }
+        }
+        if(isset($numGroupe)){
+            if($numGroupe != "0"){
+                $requete = $requete." AND P.NumGroupe = '".$numGroupe."'";
+            }
+        }
+        $requete = $requete." ORDER BY T.IdTOEIC";
         
         try{
-            if($codeINE != "0"){
-                $requete = "SELECT DISTINCT R.IdTOEIC, LibelleToeic, codeINE FROM repondre R JOIN toeic T ON R.IdTOEIC=T.IdTOEIC WHERE codeINE = :codeINE";
-                $req = Model::$pdo->prepare($requete);
-                $values = array(
-                    "codeINE" => $codeINE
-                );
-
-                $req->execute($values);
-            }
-            else{
-                $req = Model::$pdo->query($requete);
-
-                $req->execute();
-            }
-            
-            $res = array();
-
-            while ($data = $req->fetch()) {
-                $lib = 'LibelleToeic';
-                if(!isset($data[$lib])){
-                    $lib = 'LibelleTOEIC';
-                }
-                $add=array(
-                    "IdTOEIC" => $data['IdTOEIC'],
-                    "LibelleTOEIC" => $data[$lib]
-                );
-                array_push($res, $add);
-            }
-
-            return $res;
-        } catch (PDOException $ex) {
+            $req = Model::$pdo->query($requete);
+            $req->execute();
+            //var_dump($req);
+            return $req->fetchAll();
+        } catch (PDOException $e) {
             return 1;
         }
     }

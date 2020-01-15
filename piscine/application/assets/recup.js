@@ -8,7 +8,7 @@ $(document).ready(function(){
     $.ajax({
         type:'POST',
         url:'../controllers/recupToeicEleve.php',
-        data:'codeINE='+$("#eleve").val(),
+        data:'codeINE='+$("#eleve").val()+"&idClasse="+$("#classe").val()+"&numGroupe="+$("#groupe").val(),
         success: recevoirReponseToeic
     });
     
@@ -26,7 +26,7 @@ $(document).ready(function(){
         $.ajax({
                 type:'POST',
                 url:'../controllers/recupToeicEleve.php',
-                data:'codeINE='+$("#eleve").val(),
+                data:'codeINE='+$("#eleve").val()+"&idClasse="+$("#classe").val()+"&numGroupe="+$("#groupe").val(),
                 success: recevoirReponseToeic
         });
         	
@@ -45,7 +45,7 @@ $(document).ready(function(){
         $.ajax({
                 type:'POST',
                 url:'../controllers/recupToeicEleve.php',
-                data:'codeINE='+$("#eleve").val(),
+                data:'codeINE='+$("#eleve").val()+"&idClasse="+$("#classe").val()+"&numGroupe="+$("#groupe").val(),
                 success: recevoirReponseToeic
         });
         	
@@ -56,7 +56,7 @@ $(document).ready(function(){
         $.ajax({
                 type:'POST',
                 url:'../controllers/recupToeicEleve.php',
-                data:'codeINE='+$("#eleve").val(),
+                data:'codeINE='+$("#eleve").val()+"&idClasse="+$("#classe").val()+"&numGroupe="+$("#groupe").val(),
                 success: recevoirReponseToeic
         });	
     });
@@ -73,7 +73,7 @@ function recevoirReponseEleve(reponse){
 }
 
 function recevoirReponseToeic(reponse){
-    //alert(reponse);
+    alert(reponse);
 
     $.each($.parseJSON(reponse), function(index, val){
         //alert(val);
