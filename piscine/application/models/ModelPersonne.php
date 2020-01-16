@@ -147,12 +147,10 @@ abstract class ModelPersonne {
 
     public static function updatePhoto() {
 
-
-
     }
 
     public static function getEleveByClasseGroupe($idClasse,$numGroupe){
-        $requete = "SELECT codeINE, nom, prenom, email, NumGroupe FROM personne";
+        $requete = "SELECT codeINE, nom, prenom, email, NumGroupe FROM personne ORDER BY nom, prenom";
 
         try{
             if($idClasse != 0 && $numGroupe != 0){
@@ -209,6 +207,19 @@ abstract class ModelPersonne {
         } catch (PDOException $ex) {
             return 1;
         }
+    }
+
+
+    public function generateRandomPassword($longueur) {
+        $caracteres = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        $mdp = "";
+
+        for ($i = 0; $i < $longueur; $i++) {
+            $mdp .= $caracteres[rand(0,strlen($caracteres)-1)];
+        }
+
+        return $mdp;
     }
 
 }

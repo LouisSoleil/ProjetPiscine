@@ -36,11 +36,10 @@ for ($i = 1; $i <=7; $i++) {
 
 echo "<br>";
 
-echo "Score partie Orale : ".$notes['listening']." / 100"."<br>";
-echo "Score partie Ecrite : ".$notes['reading']." / 100"."<br>";
+echo "Score partie Orale : ".$scoreListening." / 495"."<br>";
+echo "Score partie Ecrite : ".$scoreReading." / 495"."<br>";
 echo "<br>";
-echo "Note : ". ($notes['reading']+$notes['listening'])." / 200";
-
+echo "Note : ". ($scoreReading+$scoreListening)." / 990";
 
 
 ?>

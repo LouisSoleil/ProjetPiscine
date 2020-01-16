@@ -7,6 +7,14 @@
     <link rel="stylesheet" type="text/css" href="../../assets/css/accueilExamCss.css">
     <meta charset="UTF-8">
     <title>Supprimer un toeic</title>
+    <script type="text/javascript">
+        function Supp(link){
+            if(confirm('Confirmer la suppression ?')){
+                document.location.href = link;
+            }
+        }
+
+    </script>
 </head>
 
 <body>
@@ -28,7 +36,7 @@
             }
             else {
                 foreach ($toeics as $value) {
-                    echo '<button class="bouton" type="submit" name="toeic" value="'.$value['IdTOEIC'].'">'.$value['LibelleTOEIC'].'</button><br><br>';
+                    echo '<button class="bouton" onclick="Supp(this.href)" type="submit" name="toeic" value="'.$value['IdTOEIC'].'">'.$value['LibelleTOEIC'].'</button><br><br>';
                 }
             }
 

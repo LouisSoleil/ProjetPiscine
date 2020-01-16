@@ -208,7 +208,7 @@ class ControllerStats {
 
                 for($i = 1; $i < count($dataPoints); $i++){
                     if($dataPoints[$i]['y'] != 0){
-                        $evolutionGlobale = round($evolutionGlobale * (1+round(($dataPoints[$i]['y']-$dataPoints[$i-1]['y'])/$dataPoints[$i]['y'], 2)),2);
+                        $evolutionGlobale = round(($dataPoints[count($dataPoints)-1]-$dataPoints[1])*100/$dataPoints[1] * (1+round(($dataPoints[$i]['y']-$dataPoints[$i-1]['y'])/$dataPoints[$i]['y'], 2)),2);
                     }
                 }
 

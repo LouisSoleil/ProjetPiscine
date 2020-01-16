@@ -51,7 +51,7 @@
         </div>
 
         <div class="rightcolumn">
-            <img width="250" src="<?php echo '../../membres/photos/'.$_SESSION['codeINE'].'.jpeg'; ?>">
+            <img width="250" src="<?php echo $_SESSION['photo']; ?>">
             <label for="nom"></label>
             <input type="file" name="photo" /> <br>
         </div>

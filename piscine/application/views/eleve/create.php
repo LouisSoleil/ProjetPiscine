@@ -36,14 +36,6 @@
             <input type='text' name="codeINE" value="<?php if(!isset($erreurs['codeINE']) && isset($ine)) { echo $ine; } ?>" required/>
             <br>
 
-            <label for="password">Mot de passe</label> :
-            <input type='password' name="password" required/>
-            <br>
-
-            <label for="password_confirm">Confirmation du mot de passe</label> :
-            <input type='password' name="password_confirm" required/>
-            <br>
-
             <label for="classe">Classe</label> :
             <SELECT name="classe">
                 <?php

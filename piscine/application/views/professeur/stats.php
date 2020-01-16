@@ -62,7 +62,7 @@
         <?php
     }
     ?>
-        <a href="javascript:history.go(-1)">Retour</a>
+        <a class="bouton" href="javascript:history.go(-1)">Retour</a>
 
 </div>
 <?php include('../../assets/css/footer.php'); ?>

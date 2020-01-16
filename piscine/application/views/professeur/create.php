@@ -38,17 +38,10 @@
             <input type='text' name="codeINE" id="codeINE" value="<?php if(!isset($erreurs['codeINE']) && isset($ine)) { echo $ine; } ?>" required/>
             <br>
 
-            <label for="password">Mot de passe</label> :
-            <input type='password' name="password" id="password" required/>
-            <br>
-
-            <label for="password_confirm">Confirmation du mot de passe</label> :
-            <input type='password' name="password_confirm" id="password_confirm" required/>
-            <br>
-
         </div>
 
         </p>
+        <p> Un mail vous sera envoyé avec un mot de passe temporaire. </p>
 
         <p>
             <input class="bouton" type="submit" name="forminscription_prof" value="S'inscrire" />

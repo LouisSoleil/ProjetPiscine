@@ -8,7 +8,7 @@
     <link rel=stylesheet href="../../assets/css/profilCss.css" type="text/css">
     <meta charset="UTF-8">
 
-    <title>Profil élève</title>
+    <title>Profil professeur</title>
 
 </head>
 
@@ -35,7 +35,7 @@
     </div>
 
     <div class="photo">
-        <img class="img" src="<?php echo '../../membres/photos/'.$_SESSION['codeINE']; ?>"> <br>
+        <img class="img" src="<?php echo $_SESSION['photo']; ?>"> <br>
         <?php echo '<input type="button" value="Modifier le profil" onclick="javascript:location.href=\'routeur.php?controller=personne&&action=update\'">'; ?>
     </div>
 

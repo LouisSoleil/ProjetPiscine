@@ -183,6 +183,13 @@ class ControllerPersonne {
                     $_SESSION['codeINE'] = $personne->getCodeINE();
                     $_SESSION['email'] = $_POST['email'];
 
+                    if (!empty(glob("../../membres/photos/".$_SESSION['codeINE']."*"))) {
+                        $_SESSION['photo'] = glob("../../membres/photos/".$_SESSION['codeINE']."*")[0];
+                    }
+                    else {
+                        $_SESSION['photo'] = "../../assets/image/logo/profil.png";
+                    }
+
                     if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
                         $_SESSION['classe'] = ModelClasse::getClasseByCodeINE($_SESSION['codeINE']);
                         $_SESSION['groupe'] = ModelClasse::getGroupeById($_SESSION['codeINE']);
@@ -248,7 +255,7 @@ class ControllerPersonne {
 
         if (!isset($_POST['formupdate'])) {
             if (ModelPersonne::estEleve($_SESSION['email']) == 1) {
-                require('../views/eleve/profil_modify2.php');
+                require('../views/eleve/profil_modify.php');
             }
             else {
                 require('../views/professeur/profil_modify.php');
@@ -313,12 +320,44 @@ class ControllerPersonne {
                     $erreurs['pwd'] = "Votre mot de passe actuel ne correspond pas";
                 } else {
                     if ($pwd != $pwdBis) {
-                        $erreur['pwd'] = "Vos nouveaux mots de passes ne correspondent pas";
+                        $erreurs['pwd'] = "Vos nouveaux mots de passes ne correspondent pas";
                     } else {
                         $pwd = password_hash($pwd, PASSWORD_DEFAULT);
                     }
                 }
             }
+
+            if (($_FILES['photo']['name']) != '') {
+                $taillemax = 2097152;
+                $extensionsValides = array('jpg', 'jpeg', 'png');
+
+                if ($_FILES['photo']['size'] <= $taillemax) {
+                    $extensionUpload = strtolower(substr(strrchr($_FILES['photo']['name'],'.'),1));
+
+                    if (in_array($extensionUpload, $extensionsValides)) {
+                        $chemin = "../../membres/photos/".$_SESSION['codeINE'].".".$extensionUpload;
+                        if ($_SESSION['photo'] != "../../assets/image/logo/profil.png") {
+                            unlink($_SESSION['photo']);
+                        }
+                        $_SESSION['photo']=$chemin;
+                        $resultat = move_uploaded_file($_FILES['photo']['tmp_name'],$chemin);
+
+                        if (!$resultat) {
+                            $erreurs['photo'] = "Une erreur est survenue, veuillez réessayer avec une autre photo";
+                        }
+                    }
+                    else {
+                        $erreurs['photo'] = "Votre photo n'a pas une extension valide (jpg, jpeg, png)";
+                    }
+                }
+                else {
+                    $erreurs['photo'] = "Votre photo dépasse la limite autorisée (max 2Mo)";
+                }
+            }
+
+
+
+
             if (empty($erreurs)) {
 
                 $data = array(
@@ -348,43 +387,42 @@ class ControllerPersonne {
                     $erreurs['divers'] = "Une erreur est survenue";
 
                     if ($estEleve) {
-                        require('../views/eleve/profil_modify2.php');
+                        require('../views/eleve/profil_modify.php');
                     }
                     else {
-                        require('../views/professeur/profil_modify2.php');
+                        require('../views/professeur/profil_modify.php');
                     }
 
 
                 }
                 else {
-                    self::majSession($data);
+
+                    if (isset($data['new_nom'])) $_SESSION['nom'] = $data['new_nom'];
+                    if (isset($data['new_prenom'])) $_SESSION['prenom'] = $data['new_prenom'];
+                    if (isset($data['new_codeINE'])) {
+                        $_SESSION['codeINE'] = $data['new_codeINE'];
+                        if ($_SESSION['photo'] != "../../assets/image/logo/profil.png") {
+                            $old_name = $_SESSION['photo'];
+                            $extension = substr($_SESSION['photo'], strripos($_SESSION['photo'],".")+1);
+                            $new_name = "../../membres/photos/" . $data['new_codeINE'] . "." . $extension;
+                            $_SESSION['photo'] = $new_name;
+                            rename($old_name, $new_name);
+                        }
+                    }
+                    if (isset($data['new_idClasse'])) $_SESSION['classe'] = ModelClasse::getClasseByCodeINE($_SESSION['codeINE']);
+                    if (isset($data['new_numGroupe'])) $_SESSION['groupe'] = ModelClasse::getGroupeById($_SESSION['codeINE']);
                     header('Location: routeur.php?controller=personne&&action=profil');
                 }
             }
             else {
                 if ($estEleve) {
-                    require('../views/eleve/profil_modify2.php');
+                    require('../views/eleve/profil_modify.php');
                 }
                 else {
                     require('../views/professeur/profil_modify.php');
                 }
             }
         }
-    }
-
-    public static function majSession($data) {
-
-        if (!isset($_SESSION['email'])) require ('../views/error.php');
-
-        if (isset($data['new_nom'])) $_SESSION['nom'] = $data['new_nom'];
-        if (isset($data['new_prenom'])) $_SESSION['prenom'] = $data['new_prenom'];
-        if (isset($data['new_codeINE'])) {
-            rename("../../membres/photos/".$_SESSION['codeINE'],"../../membres/photos/".$data['new_codeINE']);
-            $_SESSION['codeINE'] = $data['new_codeINE'];
-        }
-        if (isset($data['new_email'])) $_SESSION['email'] = $data['new_email'];
-        if (isset($data['new_idClasse'])) $_SESSION['classe'] = ModelClasse::getClasseByCodeINE($_SESSION['codeINE']);
-        if (isset($data['new_numGroupe'])) $_SESSION['groupe'] = ModelClasse::getGroupeById($_SESSION['codeINE']);
     }
 
     public static function handle() {
@@ -395,38 +433,7 @@ class ControllerPersonne {
         else {
             require ('../views/error.php');
         }
-    }
 
-    public static function update2() {
 
-        if (!isset($_POST['formupdate'])) {
-            require ('../views/eleve/profil_modify.php');
-        }
-        else {
-            $taillemax = 2097152;
-            $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-
-            if ($_FILES['photo']['size'] <= $taillemax) {
-                $extensionUpload = strtolower(substr(strrchr($_FILES['photo']['name'],'.'),1));
-
-                if (in_array($extensionUpload, $extensionsValides)) {
-                    $chemin = "../../membres/photos/".$_SESSION['codeINE']/*.".".$extensionUpload*/;
-                    $resultat = move_uploaded_file($_FILES['photo']['tmp_name'],$chemin);
-
-                    if ($resultat) {
-                        header('Location: routeur.php?controller=personne&&action=profil');
-                    }
-                    else {
-                        $erreur = "Erreur 3";
-                    }
-                }
-                else {
-                    $erreur = "Erreur 2";
-                }
-            }
-            else {
-                $erreur = "Erreur 1";
-            }
-        }
     }
 }

@@ -28,13 +28,11 @@ class ModelToeic {
 
         $idToeic = Model::$pdo->lastInsertId();
 
-        $requete =  "INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 1, 'listening');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 2, 'listening');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 3, 'listening');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 4, 'listening');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 5, 'reading');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 6, 'reading');"
-            ."INSERT INTO souspartie (idToeic, idPartie, `type`) VALUES ($idToeic, 7, 'reading');";
+        $requete =  "INSERT INTO Souspartie (idToeic, idPartie, TypeT) VALUES (".$idToeic.", 1, 'listening'), (".$idToeic.", 2, 'listening'), (".$idToeic.", 3, 'listening'),"
+            ."(".$idToeic.", 4, 'listening')"
+            .", (".$idToeic.", 5, 'reading')"
+            .", (".$idToeic.", 6, 'reading')"
+            .", (".$idToeic.", 7, 'reading');";
 
         Model::$pdo->query($requete);
 
